@@ -5,7 +5,9 @@ module com.example.my_game_java {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
+    requires java.desktop;
 
-    opens com.example.my_game_java to javafx.fxml;
+    opens com.example.my_game_java.controllers to javafx.fxml;
+
     exports com.example.my_game_java;
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1">
+
+    <!-- First Row (Top Section, 3 parts of the height) -->
+    <HBox spacing="0.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.bottomAnchor="60.0">
+        <!-- O Section -->
+        <Rectangle fx:id="o1" style="-fx-fill: orange;" AnchorPane.topAnchor="0.0"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" HBox.hgrow="ALWAYS"/>
+        <!-- C Section -->
+        <Rectangle fx:id="c1" style="-fx-fill: green;" AnchorPane.topAnchor="0.0"
+                   AnchorPane.bottomAnchor="0.0" HBox.hgrow="ALWAYS"/>
+        <!-- R Section -->
+        <Rectangle fx:id="r1" style="-fx-fill: darkorange;" AnchorPane.topAnchor="0.0"
+                   AnchorPane.bottomAnchor="0.0" HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+</AnchorPane>
