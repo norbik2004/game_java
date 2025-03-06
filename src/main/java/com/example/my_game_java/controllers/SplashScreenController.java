@@ -11,7 +11,7 @@ public class SplashScreenController {
 
     @FXML
     public void initialize() {
-        Image image = new Image(getClass().getResourceAsStream("/photos/logo_main.png"));
+        Image image = new Image(getClass().getResourceAsStream("/photos/splash_screen.png"));
         imageView.setImage(image);
     }
 }
