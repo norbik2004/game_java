@@ -20,10 +20,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        OptionsScene optionsScene = new OptionsScene(primaryStage);
-        MainMenuScene mainMenuScene = new MainMenuScene(primaryStage);
         SplashScreenScene splashScreenScene = new SplashScreenScene(primaryStage);
-
         primaryStage.setScene(splashScreenScene.getScene());
 
 
@@ -41,14 +38,6 @@ public class Main extends Application {
 
         primaryStage.show();
 
-
-
-    }
-
-    private static void setOptions(Stage primaryStage){
-        //primaryStage.setFullScreen(true);
-        //primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        primaryStage.show();
     }
 
     private void PlayMusic(){
