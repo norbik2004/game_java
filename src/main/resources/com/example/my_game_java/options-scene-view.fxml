@@ -4,20 +4,16 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1">
-
-    <!-- First Row (Top Section, 3 parts of the height) -->
-    <HBox spacing="0.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-          AnchorPane.bottomAnchor="60.0">
-        <!-- O Section -->
-        <Rectangle fx:id="o1" style="-fx-fill: orange;" AnchorPane.topAnchor="0.0"
-                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" HBox.hgrow="ALWAYS"/>
-        <!-- C Section -->
-        <Rectangle fx:id="c1" style="-fx-fill: green;" AnchorPane.topAnchor="0.0"
-                   AnchorPane.bottomAnchor="0.0" HBox.hgrow="ALWAYS"/>
-        <!-- R Section -->
-        <Rectangle fx:id="r1" style="-fx-fill: darkorange;" AnchorPane.topAnchor="0.0"
-                   AnchorPane.bottomAnchor="0.0" HBox.hgrow="ALWAYS"/>
-    </HBox>
-
-</AnchorPane>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.ImageView?>
+<StackPane fx:id="rootPane"
+           prefHeight="720.0" prefWidth="1280.0"
+           style="-fx-background-color: black;"
+           xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.my_game_java.controllers.OptionsController"
+           stylesheets="@css/styles.css">
+<children>
+    <ImageView fx:id="background" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" />
+    <Rectangle fx:id="rectangle" fill="black" height="720.0" opacity="0.6" width="1280.0"  />
+</children>
+</StackPane>

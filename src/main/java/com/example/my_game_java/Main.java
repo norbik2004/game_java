@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Main extends Application {
-    private MediaPlayer mediaPlayer;
+    private static MediaPlayer mediaPlayer;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -28,7 +28,7 @@ public class Main extends Application {
         primaryStage.setHeight(720);
         primaryStage.setResizable(false);
 
-        this.PlayMusic();
+        this.playMusic();
 
         primaryStage.setOnCloseRequest(event -> {
             if (mediaPlayer != null) {
@@ -40,7 +40,7 @@ public class Main extends Application {
 
     }
 
-    private void PlayMusic(){
+    private void playMusic(){
         try{
             String musicFile = Objects.requireNonNull(getClass().getResource("/audio/lobby_music.mp3")).toExternalForm();
             Media media = new Media(musicFile);
@@ -50,6 +50,22 @@ public class Main extends Application {
             mediaPlayer.play();
         }catch(Exception e){
             System.err.println("Error playing music" + e.getMessage());
+        }
+    }
+
+    public static MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public static void setMusicVolume(double volume) {
+        if (mediaPlayer != null) {
+            mediaPlayer.setVolume(volume);
+        }
+    }
+
+    public static void stopMusic() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
         }
     }
 
