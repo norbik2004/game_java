@@ -2,6 +2,7 @@ package com.example.my_game_java.controllers;
 
 import com.example.my_game_java.scenes.MainMenuScene;
 import com.example.my_game_java.scenes.OptionsScene;
+import com.example.my_game_java.services.Audio.AudioRepository;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
@@ -26,6 +27,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class MainMenuController {
+    private final AudioRepository audioRepository;
+    private final String button_click = "/audio/button_click.mp3";
 
     @FXML
     private ImageView imageView;
@@ -48,6 +51,10 @@ public class MainMenuController {
     @FXML
     private Button exit_game;
 
+    public MainMenuController() {
+        this.audioRepository = new AudioRepository();
+    }
+
     @FXML
     public void initialize() {
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/photos/main_menu.jpg")));
@@ -55,7 +62,7 @@ public class MainMenuController {
         logo.setText("MAIN MENU");
         start_game.setText("NEW GAME");
         load_game.setText("LOAD GAME");
-        options.setText("OPTIONS");
+        options.setText("SETTINGS");
         exit_game.setText("EXIT");
 
         imageView.setOpacity(0);
@@ -100,17 +107,18 @@ public class MainMenuController {
 
     private void handleStartGame() {
         System.out.println("Start game clicked!");
-        playClick();
+        audioRepository.playClickSound(button_click);
     }
 
     private void handleLoadGame() {
         System.out.println("Load game clicked!");
-        playClick();
+        audioRepository.playClickSound(button_click);
     }
 
     private void handleOptions(ParallelTransition outro) throws IOException {
         System.out.println("Options clicked!");
-        playClick();
+        audioRepository.playClickSound(button_click);
+
         outro.setOnFinished(event -> {
             OptionsScene optionsScene;
             try {
@@ -128,15 +136,9 @@ public class MainMenuController {
 
     private void handleExitGame() {
         System.out.println("Exit game clicked!");
-        playClick();
+        audioRepository.playClickSound(button_click);
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
     }
 
-    private void playClick(){
-        AudioClip sound = new AudioClip(Objects.requireNonNull(getClass()
-                .getResource("/audio/button_click.mp3")).toString());
-        sound.setVolume(0.5);
-        sound.play();
-    }
 }

@@ -1,10 +1,15 @@
 package com.example.my_game_java.controllers;
 
 import com.example.my_game_java.scenes.MainMenuScene;
+import com.example.my_game_java.scenes.OptionsScene;
+import com.example.my_game_java.services.Audio.AudioRepository;
+import com.example.my_game_java.services.Scenes.SceneRepository;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -14,9 +19,14 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class SplashScreenController {
+    private final AudioRepository audioRepository;
+    private final SceneRepository sceneRepository;
+    private final String button_click = "/audio/button_click.mp3";
 
     @FXML
     private ImageView imageView;
@@ -26,6 +36,11 @@ public class SplashScreenController {
 
     @FXML
     private Button button_main;
+
+    public SplashScreenController() {
+        this.audioRepository = new AudioRepository();
+        this.sceneRepository = new SceneRepository();
+    }
 
     @FXML
     public void initialize() {
@@ -40,69 +55,35 @@ public class SplashScreenController {
         button_main.setText("ENTER");
 
         //intro
-        FadeTransition ft = new FadeTransition(Duration.seconds(2), imageView);
-        ft.setFromValue(0);
-        ft.setToValue(1);
-
-        FadeTransition ft2 = new FadeTransition(Duration.seconds(2), logo);
-        ft2.setFromValue(0);
-        ft2.setToValue(1);
-
-        FadeTransition ft3 = new FadeTransition(Duration.seconds(2), button_main);
-        ft3.setFromValue(0);
-        ft3.setToValue(1);
-
-        //play intro
-        SequentialTransition sequentialTransition = new SequentialTransition(ft, ft2, ft3);
-        sequentialTransition.play();
+        List<Node> nodes = Arrays.asList(imageView, logo, button_main);
+        SequentialTransition intro = sceneRepository.getSceneSequentialTransition(nodes, true);
+        intro.play();
 
         //outro
-        FadeTransition outro1 = new FadeTransition(Duration.seconds(1), imageView);
-        outro1.setFromValue(1);
-        outro1.setToValue(0);
-
-        FadeTransition outro2 = new FadeTransition(Duration.seconds(1), logo);
-        outro2.setFromValue(1);
-        outro2.setToValue(0);
-
-        FadeTransition outro3 = new FadeTransition(Duration.seconds(1), button_main);
-        outro3.setFromValue(1);
-        outro3.setToValue(0);
+        ParallelTransition outro = sceneRepository.getSceneParallelTransition(nodes, false);
 
 
 
         button_main.setOnAction(e -> {
+            audioRepository.playClickSound(button_click);
 
-            AudioClip sound = new AudioClip(Objects.requireNonNull(getClass()
-                    .getResource("/audio/button_click.mp3")).toString());
-            sound.setVolume(0.5);
-            sound.play();
+            outro.setOnFinished(event ->{
+                button_main.setVisible(false);
 
-            try {
-                this.changeToMainMenu(outro1, outro2, outro3);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-    }
-
-    private void changeToMainMenu(FadeTransition outro1, FadeTransition outro2, FadeTransition outro3) throws IOException {
-        ParallelTransition parallelTransition = new ParallelTransition(outro1, outro2, outro3);
-
-        parallelTransition.setOnFinished(event -> {
-            try {
-                MainMenuScene mainMenuScene = new MainMenuScene();
+                //change
+                Scene mainMenuScene;
+                try {
+                    mainMenuScene = new MainMenuScene().getScene();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 Stage stage = (Stage) button_main.getScene().getWindow();
-                stage.setScene(mainMenuScene.getScene());
                 stage.setTitle("Main Menu");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+                stage.setScene(mainMenuScene);
+            });
+            outro.play();
         });
-
-        parallelTransition.play();
     }
-
 
 
 }
