@@ -8,6 +8,7 @@ import com.example.my_game_java.services.Settings.SettingsRepository;
 import com.example.my_game_java.settings.Settings;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -28,6 +29,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/photos/logo.png")));
+        primaryStage.getIcons().add(icon);
 
         SplashScreenScene splashScreenScene = new SplashScreenScene();
         primaryStage.setScene(splashScreenScene.getScene());

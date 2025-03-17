@@ -2,6 +2,7 @@ package com.example.my_game_java.controllers;
 
 import com.example.my_game_java.scenes.MainMenuScene;
 import com.example.my_game_java.scenes.OptionsScene;
+import com.example.my_game_java.scenes.StartGameScene;
 import com.example.my_game_java.services.Audio.AudioRepository;
 import com.example.my_game_java.services.Scenes.SceneRepository;
 import javafx.animation.FadeTransition;
@@ -75,7 +76,7 @@ public class MainMenuController {
 
 
 
-        start_game.setOnAction(event -> handleStartGame());
+        start_game.setOnAction(event -> handleStartGame(outro));
         load_game.setOnAction(event -> handleLoadGame());
 
         //options listener
@@ -91,9 +92,22 @@ public class MainMenuController {
         exit_game.setOnAction(event -> handleExitGame());
     }
 
-    private void handleStartGame() {
-        System.out.println("Start game clicked!");
+    private void handleStartGame(ParallelTransition outro) {
         audioRepository.playClickSound();
+
+        outro.setOnFinished(event -> {
+            StartGameScene startGameScene;
+            try {
+                startGameScene = new StartGameScene();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Stage stage = (Stage) options.getScene().getWindow();
+            stage.setTitle("Start Game");
+            stage.setScene(startGameScene.getScene());
+        });
+
+        outro.play();
     }
 
     private void handleLoadGame() {
@@ -102,7 +116,6 @@ public class MainMenuController {
     }
 
     private void handleOptions(ParallelTransition outro) throws IOException {
-        System.out.println("Options clicked!");
         audioRepository.playClickSound();
 
         outro.setOnFinished(event -> {
