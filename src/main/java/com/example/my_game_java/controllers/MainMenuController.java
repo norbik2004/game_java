@@ -126,7 +126,7 @@ public class MainMenuController {
                 throw new RuntimeException(e);
             }
             Stage stage = (Stage) options.getScene().getWindow();
-            stage.setTitle("Options");
+            stage.setTitle("Settings");
             stage.setScene(optionsScene.getScene());
         });
 
