@@ -26,7 +26,6 @@ import java.util.Objects;
 public class SplashScreenController {
     private final AudioRepository audioRepository;
     private final SceneRepository sceneRepository;
-    private final String button_click = "/audio/button_click.mp3";
 
     @FXML
     private ImageView imageView;
@@ -65,10 +64,10 @@ public class SplashScreenController {
 
 
         button_main.setOnAction(e -> {
-            audioRepository.playClickSound(button_click);
+            audioRepository.playClickSound();
+            button_main.setDisable(true);
 
             outro.setOnFinished(event ->{
-                button_main.setVisible(false);
 
                 //change
                 Scene mainMenuScene;

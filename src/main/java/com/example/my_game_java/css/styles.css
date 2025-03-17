@@ -1,0 +1,17 @@
+.text {
+    -fx-font-size: 100px;
+    -fx-text-fill: black;
+    -fx-letter-spacing: -10px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Copperplate Gothic Bold";
+    -fx-stroke: #ffffff; /* Border color */
+    -fx-stroke-width: 2px; /* Border thickness */
+}
+
+.button .text {
+    -fx-font-size: 30px;
+    -fx-font-weight: normal;
+    -fx-letter-spacing: 0;
+    -fx-stroke: none;
+}
+

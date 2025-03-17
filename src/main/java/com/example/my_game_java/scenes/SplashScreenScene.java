@@ -13,10 +13,9 @@ import java.io.IOException;
 public class SplashScreenScene {
     private final Scene scene;
 
-    public SplashScreenScene(Stage primaryStage) throws IOException {
+    public SplashScreenScene() throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/my_game_java/splash-screen-view.fxml"));
-        primaryStage.setTitle("MainMenuScene");
 
         Parent root = loader.load();
         scene = new Scene(root, 1280, 720);

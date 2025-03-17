@@ -1,19 +1,17 @@
 package com.example.my_game_java.scenes;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.Parent;
-import javafx.scene.control.Label;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 import java.io.IOException;
 
-public class OptionsScene {
+public class StartGameScene {
 
     private final Scene scene;
 
-    public OptionsScene() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/my_game_java/options-scene-view.fxml"));
+    public StartGameScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/my_game_java/start-game-view.fxml"));
         Parent root = loader.load();
         scene = new Scene(root, 1280, 720);
     }
@@ -22,4 +20,3 @@ public class OptionsScene {
         return scene;
     }
 }
-

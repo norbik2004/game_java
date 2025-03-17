@@ -8,6 +8,7 @@ import java.util.Objects;
 
 public class AudioRepository implements AudioRepositoryInterface{
     private static MediaPlayer mediaPlayer;
+    private final String click_path = "/audio/button_click.mp3";
 
     @Override
     public void playMusic(String path) {
@@ -24,10 +25,20 @@ public class AudioRepository implements AudioRepositoryInterface{
     }
 
     @Override
-    public void playClickSound(String path) {
+    public void playClickSound() {
         AudioClip sound = new AudioClip(Objects.requireNonNull(getClass()
-                .getResource(path)).toString());
+                .getResource(click_path)).toString());
         sound.setVolume(0.5);
         sound.play();
     }
+
+    @Override
+    public void stopMusic() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer = null;
+        }
+    }
+
+
 }

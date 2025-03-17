@@ -3,6 +3,7 @@ package com.example.my_game_java.controllers;
 import com.example.my_game_java.scenes.MainMenuScene;
 import com.example.my_game_java.scenes.OptionsScene;
 import com.example.my_game_java.services.Audio.AudioRepository;
+import com.example.my_game_java.services.Scenes.SceneRepository;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
@@ -28,7 +29,7 @@ import java.util.Objects;
 
 public class MainMenuController {
     private final AudioRepository audioRepository;
-    private final String button_click = "/audio/button_click.mp3";
+    private final SceneRepository sceneRepository;
 
     @FXML
     private ImageView imageView;
@@ -53,6 +54,7 @@ public class MainMenuController {
 
     public MainMenuController() {
         this.audioRepository = new AudioRepository();
+        this.sceneRepository = new SceneRepository();
     }
 
     @FXML
@@ -65,28 +67,12 @@ public class MainMenuController {
         options.setText("SETTINGS");
         exit_game.setText("EXIT");
 
-        imageView.setOpacity(0);
+        List<Node> nodes = Arrays.asList(imageView, logo, start_game, load_game, options, exit_game);
 
-        //intro
-        FadeTransition ft = new FadeTransition(Duration.seconds(1), imageView);
-        ft.setFromValue(0);
-        ft.setToValue(1);
+        ParallelTransition intro = sceneRepository.getSceneParallelTransition(nodes, true);
+        ParallelTransition outro = sceneRepository.getSceneParallelTransition(nodes, false);
+        intro.play();
 
-        ParallelTransition parallelTransition = new ParallelTransition(ft);
-        parallelTransition.play();
-
-        //outro
-        List<Node> elements = Arrays.asList(imageView, logo, start_game, load_game, options, exit_game);
-        List<FadeTransition> transitions = new ArrayList<>();
-
-        for (Node element : elements) {
-            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), element);
-            fadeTransition.setFromValue(1);
-            fadeTransition.setToValue(0);
-            transitions.add(fadeTransition);
-        }
-
-        ParallelTransition outro = new ParallelTransition(transitions.toArray(new FadeTransition[0]));
 
 
         start_game.setOnAction(event -> handleStartGame());
@@ -107,17 +93,17 @@ public class MainMenuController {
 
     private void handleStartGame() {
         System.out.println("Start game clicked!");
-        audioRepository.playClickSound(button_click);
+        audioRepository.playClickSound();
     }
 
     private void handleLoadGame() {
         System.out.println("Load game clicked!");
-        audioRepository.playClickSound(button_click);
+        audioRepository.playClickSound();
     }
 
     private void handleOptions(ParallelTransition outro) throws IOException {
         System.out.println("Options clicked!");
-        audioRepository.playClickSound(button_click);
+        audioRepository.playClickSound();
 
         outro.setOnFinished(event -> {
             OptionsScene optionsScene;
@@ -136,7 +122,7 @@ public class MainMenuController {
 
     private void handleExitGame() {
         System.out.println("Exit game clicked!");
-        audioRepository.playClickSound(button_click);
+        audioRepository.playClickSound();
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
     }

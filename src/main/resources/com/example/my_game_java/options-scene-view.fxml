@@ -6,14 +6,38 @@
 
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ColorPicker?>
 <StackPane fx:id="rootPane"
            prefHeight="720.0" prefWidth="1280.0"
            style="-fx-background-color: black;"
            xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.my_game_java.controllers.OptionsController"
            stylesheets="@css/styles.css">
-<children>
-    <ImageView fx:id="background" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" />
-    <Rectangle fx:id="rectangle" fill="black" height="720.0" opacity="0.6" width="1280.0"  />
-</children>
+    <children>
+        <ImageView fx:id="background" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" />
+        <Rectangle fx:id="rectangle" fill="black" height="720.0" opacity="0.6" width="1280.0"  />
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 25 0 0 0; -fx-spacing: 50;">
+            <Label fx:id="logo">
+                <text>
+                    <Text fx:id="text_logo" text="My Game" styleClass="text"/>
+                </text>
+            </Label>
+            <VBox alignment="TOP_CENTER" style="-fx-spacing: 20;">
+                <CheckBox fx:id="musicCheckBox" text="MUSIC ON" prefWidth="250" prefHeight="60" style="-fx-font-size: 25"/>
+
+                <Button fx:id="applyButton" text="APPLY" prefWidth="250" prefHeight="60"/>
+
+                <Button fx:id="backButton" text="BACK" prefWidth="250" prefHeight="60"/>
+            </VBox>
+        </VBox>
+    </children>
 </StackPane>
