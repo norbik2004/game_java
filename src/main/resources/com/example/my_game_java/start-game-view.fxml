@@ -13,16 +13,12 @@
            prefHeight="720.0" prefWidth="1280.0"
            stylesheets="@css/styles.css">
 
-    <!-- Tło gry -->
     <ImageView fx:id="background" fitHeight="720.0" fitWidth="1280.0"
                pickOnBounds="true" preserveRatio="true"/>
 
-    <!-- Ciemny overlay dla efektu przyciemnienia -->
-    <Rectangle fx:id="rectangle" fill="black" height="720.0" opacity="0.6" width="1280.0" />
+    <Rectangle fx:id="rectangle" fill="black" height="720.0" opacity="0.5" width="1280.0" />
 
-    <!-- Główna zawartość -->
     <VBox spacing="50" alignment="CENTER">
-        <!-- Logo Gry -->
         <Label fx:id="logo">
             <text>
                 <Text fx:id="text_logo" text="My Game" styleClass="text"/>
@@ -32,21 +28,25 @@
         <!-- Wybór klasy postaci -->
         <HBox spacing="20" alignment="CENTER">
             <VBox styleClass="vbox" alignment="CENTER" spacing="20">
+                <ImageView fx:id="warrior_icon" styleClass="icon_class"/>
                 <Label fx:id="warrior_label" style="-fx-font-size: 50;"/>
                 <Label fx:id="warrior_label2" style="-fx-font-size: 30;" text="EXTRA DEFENSE"/>
                 <Button fx:id="button_warrior" prefWidth="250" prefHeight="60"/>
             </VBox>
             <VBox styleClass="vbox" alignment="CENTER" spacing="20">
+                <ImageView fx:id="mage_icon" styleClass="icon_class"/>
                 <Label fx:id="mage_label" style="-fx-font-size: 50;"/>
                 <Label fx:id="mage_label2" style="-fx-font-size: 30;" text="EXTRA DAMAGE"/>
                 <Button fx:id="button_mage"  prefWidth="250" prefHeight="60" />
             </VBox>
             <VBox styleClass="vbox" alignment="CENTER" spacing="20">
+                <ImageView fx:id="rouge_icon" styleClass="icon_class"/>
                 <Label fx:id="rouge_label" style="-fx-font-size: 50;"/>
                 <Label fx:id="rouge_label2" style="-fx-font-size: 30;" text="EXTRA CRIT"/>
                 <Button fx:id="button_rouge"  prefWidth="250" prefHeight="60"/>
             </VBox>
             <VBox styleClass="vbox" alignment="CENTER" spacing="20">
+                <ImageView fx:id="cleric_icon" styleClass="icon_class"/>
                 <Label fx:id="cleric_label" style="-fx-font-size: 50;"/>
                 <Label fx:id="cleric_label2" style="-fx-font-size: 30;" text="EXTRA HEALING"/>
                 <Button fx:id="button_cleric"  prefWidth="250" prefHeight="60"/>

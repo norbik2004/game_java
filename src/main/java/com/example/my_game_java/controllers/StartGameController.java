@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +44,14 @@ public class StartGameController {
     private Label cleric_label2;
     @FXML
     private Label warrior_label2;
+    @FXML
+    private ImageView mage_icon;
+    @FXML
+    private ImageView rouge_icon;
+    @FXML
+    private ImageView cleric_icon;
+    @FXML
+    private ImageView warrior_icon;
 
     private final SceneRepository sceneRepository;
     public StartGameController() {
@@ -51,6 +60,16 @@ public class StartGameController {
 
     public void initialize() {
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/photos/main_menu.jpg")));
+        //icons
+        Image warrior_icon_img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/photos/icons/warrior_icon.jpg")));
+        Image mage_icon_img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/photos/icons/mage_icon.jpg")));
+        Image rouge_icon_img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/photos/icons/rouge_icon.jpg")));
+        Image priest_icon_img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/photos/icons/priest_icon.jpg")));
+        warrior_icon.setImage(warrior_icon_img);
+        mage_icon.setImage(mage_icon_img);
+        rouge_icon.setImage(rouge_icon_img);
+        cleric_icon.setImage(priest_icon_img);
+
         background.setImage(image);
         logo.setText("SELECT CLASS");
         button_warrior.setText("SELECT");
