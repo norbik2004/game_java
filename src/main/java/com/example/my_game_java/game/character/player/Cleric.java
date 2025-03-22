@@ -1,9 +1,12 @@
 package com.example.my_game_java.game.character.player;
 
+import com.example.my_game_java.game.character.inventory.Item;
+
 public class Cleric extends Character {
 
     public Cleric() {
-        super(30,150,50,0.3,0.01);
+        super(30,150,50,0.3,0.01,
+                new Item("Holy Water",12,0,0));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.my_game_java;
 
 import com.example.my_game_java.game.character.enemy.Zombie;
+import com.example.my_game_java.game.character.player.Mage;
 import com.example.my_game_java.scenes.MainMenuScene;
 import com.example.my_game_java.scenes.OptionsScene;
 import com.example.my_game_java.scenes.SplashScreenScene;
@@ -54,6 +55,8 @@ public class Main extends Application {
 
         Zombie zombie1 = new Zombie(1);
         Zombie zombie2 = new Zombie(2);
+        Mage player1 = new Mage();
+        System.out.println(player1.getInventory().getItems());
 
 
         System.out.println(zombie1.getName());
