@@ -53,14 +53,7 @@ public class Main extends Application {
 
         primaryStage.show();
 
-        Zombie zombie1 = new Zombie(1);
-        Zombie zombie2 = new Zombie(2);
-        Mage player1 = new Mage();
-        System.out.println(player1.getInventory().getItems());
-
-
-        System.out.println(zombie1.getName());
-        System.out.println(zombie2.getName());
+        Mage player = new Mage();
 
     }
 

@@ -18,4 +18,8 @@ public class Cleric extends Character {
     public void defend() {
         System.out.println("Asks for help");
     }
+
+    public void heal(){
+        System.out.println("Heals his holy water");
+    }
 }

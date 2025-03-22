@@ -1,5 +1,9 @@
 package com.example.my_game_java.controllers;
 
+import com.example.my_game_java.game.character.player.Cleric;
+import com.example.my_game_java.game.character.player.Mage;
+import com.example.my_game_java.game.character.player.Rouge;
+import com.example.my_game_java.game.character.player.Warrior;
 import com.example.my_game_java.services.Scenes.SceneRepository;
 import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
@@ -8,8 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -87,5 +89,37 @@ public class StartGameController {
         ParallelTransition intro = sceneRepository.getSceneParallelTransition(nodes, true);
         ParallelTransition outro = sceneRepository.getSceneParallelTransition(nodes, false);
         intro.play();
+
+
+    }
+
+    //class selection
+    @FXML
+    private void selectWarrior() {
+        String player = "Warrior";
+        startGame(player);
+    }
+
+    @FXML
+    private void selectMage() {
+        String player = "Mage";
+        startGame(player);
+    }
+
+    @FXML
+    private void selectRouge() {
+        String player = "Rouge";
+        startGame(player);
+    }
+
+    @FXML
+    private void selectCleric() {
+        String player = "Cleric";
+        startGame(player);
+    }
+
+    private void startGame(String player) {
+        System.out.println("Selected player: " + player);
+
     }
 }

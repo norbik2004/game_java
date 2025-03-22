@@ -5,7 +5,7 @@ import com.example.my_game_java.game.character.inventory.Item;
 
 import java.util.ArrayList;
 
-abstract class Character {
+public abstract class Character {
     protected int damage;
     protected int health;
     protected int armour;
