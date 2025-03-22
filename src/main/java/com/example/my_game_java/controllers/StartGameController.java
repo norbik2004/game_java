@@ -83,7 +83,7 @@ public class StartGameController {
 
         List<Node> nodes = Arrays.asList(background, logo, button_warrior, button_cleric, button_mage, button_rouge,
                 mage_label, cleric_label, warrior_label, rouge_label, cleric_label2, warrior_label2,
-                mage_label2, rouge_label2);
+                mage_label2, rouge_label2, warrior_icon, mage_icon, rouge_icon, cleric_icon);
         ParallelTransition intro = sceneRepository.getSceneParallelTransition(nodes, true);
         ParallelTransition outro = sceneRepository.getSceneParallelTransition(nodes, false);
         intro.play();
