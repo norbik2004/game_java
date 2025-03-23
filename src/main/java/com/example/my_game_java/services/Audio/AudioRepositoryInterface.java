@@ -8,4 +8,6 @@ public interface AudioRepositoryInterface {
 
     void stopMusic();
 
+    void switchMusic(String path);
+
 }

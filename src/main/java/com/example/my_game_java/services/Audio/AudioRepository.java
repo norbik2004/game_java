@@ -14,8 +14,12 @@ public class AudioRepository implements AudioRepositoryInterface{
     public void playMusic(String path) {
         try{
             String musicFile = Objects.requireNonNull(getClass().getResource(path)).toExternalForm();
-            Media media = new Media(musicFile);
-            mediaPlayer = new MediaPlayer(media);
+
+            if(mediaPlayer == null){
+                Media media = new Media(musicFile);
+                mediaPlayer = new MediaPlayer(media);
+            }
+
             mediaPlayer.setVolume(0.25);
             mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
             mediaPlayer.play();
@@ -40,5 +44,38 @@ public class AudioRepository implements AudioRepositoryInterface{
         }
     }
 
+    @Override
+    public void switchMusic(String path) {
+        if (mediaPlayer != null) {
+            fadeOut(mediaPlayer, () -> {
+                mediaPlayer.stop();
+                mediaPlayer = null;
+                playMusic(path);
+            });
+        } else {
+            playMusic(path);
+        }
+    }
+
+    private void fadeOut(MediaPlayer player, Runnable onComplete) {
+        final double fadeDuration = 2;
+        final double fadeStep = 0.1;
+
+        new Thread(() -> {
+            try {
+                double volume = player.getVolume();
+                while (volume > 0) {
+                    volume -= fadeStep;
+                    if (volume < 0) volume = 0;
+                    double finalVolume = volume;
+                    javafx.application.Platform.runLater(() -> player.setVolume(finalVolume));
+                    Thread.sleep((long) (fadeDuration * 1000 * fadeStep));
+                }
+                javafx.application.Platform.runLater(onComplete);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
 
 }
