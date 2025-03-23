@@ -1,6 +1,7 @@
 package com.example.my_game_java;
 
 import com.example.my_game_java.game.character.enemy.Zombie;
+import com.example.my_game_java.game.character.player.Character;
 import com.example.my_game_java.game.character.player.Mage;
 import com.example.my_game_java.scenes.MainMenuScene;
 import com.example.my_game_java.scenes.OptionsScene;
@@ -52,9 +53,6 @@ public class Main extends Application {
 
 
         primaryStage.show();
-
-        Mage player = new Mage();
-
     }
 
     public static void main(String[] args) {

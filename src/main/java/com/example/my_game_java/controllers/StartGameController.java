@@ -1,17 +1,25 @@
 package com.example.my_game_java.controllers;
 
+import com.example.my_game_java.game.character.player.Character;
 import com.example.my_game_java.game.character.player.Cleric;
 import com.example.my_game_java.game.character.player.Mage;
 import com.example.my_game_java.game.character.player.Rouge;
 import com.example.my_game_java.game.character.player.Warrior;
+import com.example.my_game_java.scenes.GameScene;
+import com.example.my_game_java.scenes.MainMenuScene;
+import com.example.my_game_java.services.Audio.AudioRepository;
 import com.example.my_game_java.services.Scenes.SceneRepository;
 import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -56,8 +64,12 @@ public class StartGameController {
     private ImageView warrior_icon;
 
     private final SceneRepository sceneRepository;
+    private final AudioRepository audioRepository;
+    private ParallelTransition outro;
+    private Character player;
     public StartGameController() {
         this.sceneRepository = new SceneRepository();
+        this.audioRepository = new AudioRepository();
     }
 
     public void initialize() {
@@ -87,39 +99,55 @@ public class StartGameController {
                 mage_label, cleric_label, warrior_label, rouge_label, cleric_label2, warrior_label2,
                 mage_label2, rouge_label2, warrior_icon, mage_icon, rouge_icon, cleric_icon);
         ParallelTransition intro = sceneRepository.getSceneParallelTransition(nodes, true);
-        ParallelTransition outro = sceneRepository.getSceneParallelTransition(nodes, false);
-        intro.play();
 
+        outro = sceneRepository.getSceneParallelTransition(nodes, false);
+        intro.play();
 
     }
 
     //class selection
     @FXML
     private void selectWarrior() {
-        String player = "Warrior";
+        audioRepository.playClickSound();
+        player = new Warrior();
         startGame(player);
     }
 
     @FXML
     private void selectMage() {
-        String player = "Mage";
+        audioRepository.playClickSound();
+        player = new Mage();
         startGame(player);
     }
 
     @FXML
     private void selectRouge() {
-        String player = "Rouge";
+        audioRepository.playClickSound();
+        player = new Rouge();
         startGame(player);
     }
 
     @FXML
     private void selectCleric() {
-        String player = "Cleric";
+        audioRepository.playClickSound();
+        player = new Cleric();
         startGame(player);
     }
 
-    private void startGame(String player) {
-        System.out.println("Selected player: " + player);
+    private void startGame(Character player) {
+        System.out.println("Selected player: " + player.getClass().getSimpleName());
 
+        outro.setOnFinished(event ->{
+            Scene gameScene;
+            try {
+                gameScene = new GameScene().getScene();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            Stage stage = (Stage) background.getScene().getWindow();
+            stage.setTitle("Game");
+            stage.setScene(gameScene);
+        });
+        outro.play();
     }
 }
