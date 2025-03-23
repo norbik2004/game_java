@@ -6,9 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<?import javafx.scene.image.ImageView?>
+<StackPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.my_game_java.controllers.GameController"
-            prefHeight="400.0" prefWidth="600.0">
+            style="-fx-background-color: black"
+            prefHeight="720.0" prefWidth="1280.0"
+           stylesheets="@css/styles.css">
+    <children>
+        <ImageView fx:id="imageView" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true"/>
+    </children>
 
-</AnchorPane>
+
+</StackPane>

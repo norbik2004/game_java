@@ -6,25 +6,23 @@ import javafx.scene.media.MediaPlayer;
 
 import java.util.Objects;
 
-public class AudioRepository implements AudioRepositoryInterface{
+public class AudioRepository implements AudioRepositoryInterface {
     private static MediaPlayer mediaPlayer;
     private final String click_path = "/audio/button_click.mp3";
 
     @Override
     public void playMusic(String path) {
-        try{
+        try {
             String musicFile = Objects.requireNonNull(getClass().getResource(path)).toExternalForm();
-
-            if(mediaPlayer == null){
-                Media media = new Media(musicFile);
-                mediaPlayer = new MediaPlayer(media);
-            }
-
-            mediaPlayer.setVolume(0.25);
+            Media media = new Media(musicFile);
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setVolume(0);
             mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
             mediaPlayer.play();
-        }catch(Exception e){
-            System.err.println("Error playing music" + e.getMessage());
+
+            fadeIn(mediaPlayer);
+        } catch (Exception e) {
+            System.err.println("Error playing music: " + e.getMessage());
         }
     }
 
@@ -58,8 +56,8 @@ public class AudioRepository implements AudioRepositoryInterface{
     }
 
     private void fadeOut(MediaPlayer player, Runnable onComplete) {
-        final double fadeDuration = 2;
-        final double fadeStep = 0.1;
+        final double fadeDuration = 2000; // 2 seconds
+        final double fadeStep = 0.05;
 
         new Thread(() -> {
             try {
@@ -69,7 +67,7 @@ public class AudioRepository implements AudioRepositoryInterface{
                     if (volume < 0) volume = 0;
                     double finalVolume = volume;
                     javafx.application.Platform.runLater(() -> player.setVolume(finalVolume));
-                    Thread.sleep((long) (fadeDuration * 1000 * fadeStep));
+                    Thread.sleep((long) (fadeDuration * fadeStep));
                 }
                 javafx.application.Platform.runLater(onComplete);
             } catch (InterruptedException e) {
@@ -78,4 +76,23 @@ public class AudioRepository implements AudioRepositoryInterface{
         }).start();
     }
 
+    private void fadeIn(MediaPlayer player) {
+        final double fadeDuration = 2000; // 2 seconds
+        final double fadeStep = 0.05;
+
+        new Thread(() -> {
+            try {
+                double volume = 0;
+                while (volume < 0.25) {
+                    volume += fadeStep;
+                    if (volume > 0.25) volume = 0.25;
+                    double finalVolume = volume;
+                    javafx.application.Platform.runLater(() -> player.setVolume(finalVolume));
+                    Thread.sleep((long) (fadeDuration * fadeStep));
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
 }
