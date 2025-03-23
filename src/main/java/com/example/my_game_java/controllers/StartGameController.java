@@ -5,13 +5,15 @@ import com.example.my_game_java.game.character.player.Cleric;
 import com.example.my_game_java.game.character.player.Mage;
 import com.example.my_game_java.game.character.player.Rouge;
 import com.example.my_game_java.game.character.player.Warrior;
+import com.example.my_game_java.game.services.PlayerManager;
 import com.example.my_game_java.scenes.GameScene;
-import com.example.my_game_java.scenes.MainMenuScene;
 import com.example.my_game_java.services.Audio.AudioRepository;
 import com.example.my_game_java.services.Scenes.SceneRepository;
 import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -137,16 +139,17 @@ public class StartGameController {
     private void startGame(Character player) {
         System.out.println("Selected player: " + player.getClass().getSimpleName());
 
-        outro.setOnFinished(event ->{
-            Scene gameScene;
+        PlayerManager.getInstance().setPlayer(player);
+
+        outro.setOnFinished(event -> {
             try {
-                gameScene = new GameScene().getScene();
+                Scene gameScene = new GameScene().getScene();
+                Stage stage = (Stage) background.getScene().getWindow();
+                stage.setTitle("Game");
+                stage.setScene(gameScene);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            Stage stage = (Stage) background.getScene().getWindow();
-            stage.setTitle("Game");
-            stage.setScene(gameScene);
         });
         outro.play();
     }
