@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.image.ImageView?>
 <StackPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.my_game_java.controllers.GameController"
-            style="-fx-background-color: black"
-            prefHeight="720.0" prefWidth="1280.0"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.my_game_java.controllers.GameController"
+           style="-fx-background-color: black"
+           prefHeight="720.0" prefWidth="1280.0"
            stylesheets="@css/styles.css">
-    <children>
-        <ImageView fx:id="imageView" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true"/>
-    </children>
 
+    <ImageView fx:id="imageView" />
+    <children>
+        <AnchorPane>
+            <children>
+                <VBox spacing="10">
+                    <TextArea fx:id="textArea"
+                              editable="false"
+                              wrapText="true"
+                              prefWidth="640.0" prefHeight="360.0"
+                              style="-fx-control-inner-background: black; -fx-text-fill: white; -fx-font-size: 20;"/>
+
+                    <Button fx:id="addTextButton"
+                            text="DODAJ"
+                            onAction="#addText"/>
+                </VBox>
+            </children>
+            <AnchorPane.topAnchor>0.0</AnchorPane.topAnchor>
+            <AnchorPane.leftAnchor>0.0</AnchorPane.leftAnchor>
+        </AnchorPane>
+    </children>
 
 </StackPane>
