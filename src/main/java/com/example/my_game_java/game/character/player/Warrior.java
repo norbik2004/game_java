@@ -6,7 +6,8 @@ public class Warrior extends Character {
 
     public Warrior() {
         super(30,100,75,0.3,0.2,
-                new Item("Big Sword",12,0,0));
+                new Item(3,"Big Sword",
+                        "/photos/icons/warrior_icon.jpg",12,0,0));
     }
 
     @Override

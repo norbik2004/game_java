@@ -6,7 +6,8 @@ public class Cleric extends Character {
 
     public Cleric() {
         super(30,150,50,0.3,0.01,
-                new Item("Holy Water",12,0,0));
+                new Item(3,"Holy Water",
+                        "/photos/icons/priest_icon.jpg",12,0,0));
     }
 
     @Override

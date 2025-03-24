@@ -6,7 +6,8 @@ public class Rouge extends Character {
 
     public Rouge() {
         super(30,100,35,0.5,0.5,
-                new Item("Kitchen Knife",12,0,0));
+                new Item(3,"Kitchen Knife",
+                        "/photos/icons/rouge_icon.jpg",12,0,0));
     }
 
 
