@@ -38,7 +38,7 @@
                     <Rectangle width="480" height="400" fill="black" opacity="0.5"/>
 
                     <!-- Ekwipunek: Układ na wzór postaci -->
-                    <VBox spacing="5" alignment="CENTER">
+                    <VBox spacing="15" alignment="CENTER">
                         <!-- Hełm -->
                         <ImageView fx:id="helmet_icon" fitWidth="64" fitHeight="64" />
 

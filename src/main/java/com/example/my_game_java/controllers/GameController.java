@@ -66,32 +66,17 @@ public class GameController {
         imageView.setOpacity(0.4);
 
         audioRepository.switchMusic("/audio/main_music.mp3");
+        List<ImageView> icons = Arrays.asList(helmet_icon, main_hand_icon, boots_icon, armor_icon, second_hand_icon);
 
         //script
         if (player != null) {
             gameRepository.welcomingScript(textArea, player);
+            gameRepository.initializeIcons(icons, player);
         } else {
             System.out.println("No player selected.");
         }
 
 
-        //ends here
-
-        List<Node> icons = Arrays.asList(helmet_icon, main_hand_icon, boots_icon, armor_icon, second_hand_icon);
-
-        //Initialize start Equipment
-        if (player != null) {
-            List<Item> player_items = player.getInventory().getItems();
-            for (Item item : player_items) {
-                if(item.getId() == 3) {
-                    Tooltip tooltip_main_weapon = new Tooltip();
-                    tooltip_main_weapon.setText(item.getName() + " dmg: " + item.getDamageBonus());
-                    main_hand_icon.setImage(new Image(getClass().getResourceAsStream(item.getIcon_path())));
-                    Tooltip.install(main_hand_icon, tooltip_main_weapon);
-                }
-
-            }
-        }
 
 
     }
