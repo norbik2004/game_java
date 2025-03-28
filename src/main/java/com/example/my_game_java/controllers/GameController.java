@@ -8,6 +8,7 @@ import com.example.my_game_java.services.game.GameRepository;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +16,9 @@ import javafx.scene.control.TextArea;
 import javafx.util.Duration;
 import javafx.scene.control.Tooltip;
 
+import javax.tools.Tool;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -65,44 +69,25 @@ public class GameController {
 
         //script
         if (player != null) {
-            gameRepository.addConsoleText(
-                    "Welcome, " + player.getClass().getSimpleName() + ".\n" +
-                            "You wake up on the cold, damp floor of an ancient dungeon...\n" +
-                            "The air is thick with the scent of mold and decay.\n" +
-                            "A faint flickering torch casts eerie shadows on the walls, \n" +
-                            "revealing cryptic symbols carved into the stone.\n", textArea
-            );
-
-            gameRepository.addConsoleText(
-                    "In the distance, you hear the slow, rhythmic dripping of water.\n" +
-                            "But beneath that sound, something else lurks... \n" +
-                            "A whisper? A growl? You're not alone.\n", textArea
-            );
-
-            gameRepository.addConsoleText(
-                    "Your heart pounds as you struggle to recall how you got here.\n" +
-                            "Your only choice is to move forward, deeper into the unknown.\n" +
-                            "Find a way out before the darkness consumes you.\n", textArea
-            );
-
+            gameRepository.welcomingScript(textArea, player);
         } else {
             System.out.println("No player selected.");
         }
 
-        gameRepository.addConsoleText(
-                "Be careful... This place is ancient and full of secrets.\n" +
-                        "Not all of them will be friendly.\n", textArea
-        );
+
         //ends here
 
-
+        List<Node> icons = Arrays.asList(helmet_icon, main_hand_icon, boots_icon, armor_icon, second_hand_icon);
 
         //Initialize start Equipment
         if (player != null) {
             List<Item> player_items = player.getInventory().getItems();
             for (Item item : player_items) {
                 if(item.getId() == 3) {
+                    Tooltip tooltip_main_weapon = new Tooltip();
+                    tooltip_main_weapon.setText(item.getName() + " dmg: " + item.getDamageBonus());
                     main_hand_icon.setImage(new Image(getClass().getResourceAsStream(item.getIcon_path())));
+                    Tooltip.install(main_hand_icon, tooltip_main_weapon);
                 }
 
             }

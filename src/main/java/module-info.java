@@ -8,6 +8,7 @@ module com.example.my_game_java {
     requires javafx.media;
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
+    requires java.compiler;
     exports com.example.my_game_java.settings;
 
     opens com.example.my_game_java.controllers to javafx.fxml;
