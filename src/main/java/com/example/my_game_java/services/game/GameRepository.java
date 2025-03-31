@@ -91,7 +91,7 @@ public class GameRepository implements GameRepositoryInterface {
         for(ImageView icon : icons) {
             icon.setImage(new Image(Objects.requireNonNull(getClass().
                     getResourceAsStream("/photos/icons/empty_icon.png"))));
-            icon.setOpacity(0.75);
+            icon.setOpacity(0.85);
         }
 
         /*

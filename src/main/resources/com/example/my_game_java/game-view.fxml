@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Rectangle?>
 
+<?import javafx.scene.control.Label?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.example.my_game_java.controllers.GameController"
@@ -26,9 +27,20 @@
                           wrapText="true"
                           prefWidth="800.0" prefHeight="400.0"
                           style="-fx-control-inner-background: black; -fx-text-fill: white; -fx-font-size: 20;"/>
-                <Button fx:id="addTextButton"
-                        text="DODAJ"
-                        onAction="#addText"/>
+                <HBox spacing="20">
+                    <VBox spacing="10">
+                        <Button fx:id="addTextButton"
+                                onAction="#addText"/>
+                        <Button fx:id="attack"
+                                onAction="#addText"/>
+                    </VBox>
+                    <VBox spacing="10">
+                        <Button fx:id="block"
+                                onAction="#addText"/>
+                        <Button fx:id="walk"
+                                onAction="#addText"/>
+                    </VBox>
+                </HBox>
             </VBox>
 
             <!-- Druga kolumna -->
@@ -53,6 +65,12 @@
                         <ImageView fx:id="boots_icon" fitWidth="64" fitHeight="64" />
                     </VBox>
                 </StackPane>
+                <VBox prefHeight="275" prefWidth="480" style="-fx-background-color: black"
+                opacity="0.5">
+                    <Label text="elo" style="-fx-font-size: 15"/>
+                    <Label text="tutaj" style="-fx-font-size: 15"/>
+                    <Label text="staty" style="-fx-font-size: 15"/>
+                </VBox>
             </VBox>
         </HBox>
     </children>

@@ -56,6 +56,15 @@ public class GameController {
     private Button addTextButton;
 
     @FXML
+    private Button attack;
+
+    @FXML
+    private Button walk;
+
+    @FXML
+    private Button block;
+
+    @FXML
     public void initialize() {
         System.out.println("Initializing Game");
         Character player = PlayerManager.getInstance().getPlayer();
@@ -64,6 +73,10 @@ public class GameController {
                 .getResourceAsStream("/photos/game-main-theme.png")));
         imageView.setImage(image);
         imageView.setOpacity(0.4);
+        addTextButton.setText("DODAJ");
+        attack.setText("ATTACK");
+        walk.setText("WALK");
+        block.setText("BLOCK");
 
         audioRepository.switchMusic("/audio/main_music.mp3");
         List<ImageView> icons = Arrays.asList(helmet_icon, main_hand_icon, boots_icon, armor_icon, second_hand_icon);
