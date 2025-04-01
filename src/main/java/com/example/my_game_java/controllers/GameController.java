@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextArea;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import javafx.scene.control.Tooltip;
 
@@ -65,6 +66,9 @@ public class GameController {
     private Button block;
 
     @FXML
+    private Rectangle healthBar;
+
+    @FXML
     public void initialize() {
         System.out.println("Initializing Game");
         Character player = PlayerManager.getInstance().getPlayer();
@@ -90,12 +94,25 @@ public class GameController {
         }
 
 
-
+        updateHealthBar();
 
     }
 
     @FXML
     public void addText() {
         gameRepository.addConsoleText("this button just adds text \n", textArea);
+    }
+
+    private void updateHealthBar() {
+        double currentHealth = PlayerManager.getInstance().getPlayer().getHealth();
+        double newWidth = (300 * (currentHealth / 100));
+        healthBar.setWidth(newWidth);
+    }
+
+    @FXML
+    private void update() {
+        Character player = PlayerManager.getInstance().getPlayer();
+        player.setHealth(player.getHealth() - 5);
+        updateHealthBar();
     }
 }
