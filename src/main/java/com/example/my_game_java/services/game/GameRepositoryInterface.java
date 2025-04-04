@@ -10,5 +10,6 @@ import java.util.List;
 public interface GameRepositoryInterface {
     void welcomingScript(TextArea console,Character player);
     void initializeIcons(List<ImageView> icons, Character player);
+    void generateMap();
 
 }

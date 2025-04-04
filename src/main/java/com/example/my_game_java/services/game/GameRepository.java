@@ -143,5 +143,10 @@ public class GameRepository implements GameRepositoryInterface {
             }
         }
     }
+
+    @Override
+    public void generateMap() {
+
+    }
 }
 

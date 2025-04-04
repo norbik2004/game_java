@@ -12,6 +12,9 @@ module com.example.my_game_java {
     exports com.example.my_game_java.settings;
 
     opens com.example.my_game_java.controllers to javafx.fxml;
+    opens com.example.my_game_java.services.game to com.fasterxml.jackson.databind;
+    opens com.example.my_game_java.game.character.player to com.fasterxml.jackson.databind;
+    exports com.example.my_game_java.game.character.inventory to com.fasterxml.jackson.databind;
 
     exports com.example.my_game_java;
 }
