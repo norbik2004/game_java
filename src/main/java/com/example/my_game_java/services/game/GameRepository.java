@@ -13,10 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Queue;
+import java.util.*;
 
 public class GameRepository implements GameRepositoryInterface {
     private final Queue<String> messageQueue = new LinkedList<>();
@@ -145,8 +142,78 @@ public class GameRepository implements GameRepositoryInterface {
     }
 
     @Override
-    public void generateMap() {
+    public int[][] generateMap() {
+        int[][] map = new int[15][5];
+        Random rand = new Random();
+        for (int i = 1; i < map.length-1; i++) {
+            for (int j = 0; j < map[0].length; j++) {
+                int zeroOrOne = rand.nextInt(2);
+                map[i][j] = zeroOrOne;
+            }
+        }
 
+
+
+        map = makeCorridors(map);
+
+        Arrays.fill(map[14], 0);
+        Arrays.fill(map[0], 0);
+        for (int i = 0; i < map[0].length; i++) {
+            if(map[13][i] == 1 || map[13][i] == 2){
+                map[14][i] = 1;
+                break;
+            }
+        }
+
+        for (int i = 0; i < map[0].length; i++) {
+            if(map[1][i] == 1 || map[1][i] == 2){
+                map[0][i] = 3;
+                break;
+            }
+        }
+
+        //debugging
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[0].length; j++) {
+                System.out.print(map[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        return map;
+    }
+
+    public int[][] makeCorridors(int[][] map){
+        int rows = map.length -1;
+        int cols = map[0].length;
+        int flag;
+        Random rand = new Random();
+
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols; j++){
+                if(map[i][j] == 1){
+                    flag = 0;
+                    for(int dx = -1; dx <= 1; dx++){
+                        for(int dy = -1; dy <= 1; dy++){
+                            int ni = i + dx;
+                            int nj = j + dy;
+
+                            if (ni >= 0 && ni < rows && nj >= 0 && nj < cols) {
+                                if(flag == 0 && map[ni][nj] == 0){
+                                    if (rand.nextInt(100) > 71) {
+                                        map[ni][nj] = 2;
+                                        flag = 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        return map;
     }
 }
 
