@@ -85,7 +85,7 @@ public class GameRepository implements GameRepositoryInterface {
         ImageView second_hand_icon = icons.get(4);
         List<Item> player_items = player.getInventory().getItems();
 
-        for(ImageView icon : icons) {
+        for (ImageView icon : icons) {
             icon.setImage(new Image(Objects.requireNonNull(getClass().
                     getResourceAsStream("/photos/icons/empty_icon.png"))));
             icon.setOpacity(0.85);
@@ -101,7 +101,7 @@ public class GameRepository implements GameRepositoryInterface {
         */
 
         for (Item item : player_items) {
-            switch(item.getId()){
+            switch (item.getId()) {
                 case 1:
                     Tooltip tooltip_helmet = new Tooltip();
                     tooltip_helmet.setText(item.getName() + " armor: " + item.getDamageBonus());
@@ -139,81 +139,6 @@ public class GameRepository implements GameRepositoryInterface {
                     break;
             }
         }
-    }
-
-    @Override
-    public int[][] generateMap() {
-        int[][] map = new int[15][5];
-        Random rand = new Random();
-        for (int i = 1; i < map.length-1; i++) {
-            for (int j = 0; j < map[0].length; j++) {
-                int zeroOrOne = rand.nextInt(2);
-                map[i][j] = zeroOrOne;
-            }
-        }
-
-
-
-        map = makeCorridors(map);
-
-        Arrays.fill(map[14], 0);
-        Arrays.fill(map[0], 0);
-        for (int i = 0; i < map[0].length; i++) {
-            if(map[13][i] == 1 || map[13][i] == 2){
-                map[14][i] = 1;
-                break;
-            }
-        }
-
-        for (int i = 0; i < map[0].length; i++) {
-            if(map[1][i] == 1 || map[1][i] == 2){
-                map[0][i] = 3;
-                break;
-            }
-        }
-
-        //debugging
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
-                System.out.print(map[i][j] + " ");
-            }
-            System.out.println();
-        }
-
-        return map;
-    }
-
-    public int[][] makeCorridors(int[][] map){
-        int rows = map.length -1;
-        int cols = map[0].length;
-        int flag;
-        Random rand = new Random();
-
-        for(int i = 0; i < rows; i++){
-            for(int j = 0; j < cols; j++){
-                if(map[i][j] == 1){
-                    flag = 0;
-                    for(int dx = -1; dx <= 1; dx++){
-                        for(int dy = -1; dy <= 1; dy++){
-                            int ni = i + dx;
-                            int nj = j + dy;
-
-                            if (ni >= 0 && ni < rows && nj >= 0 && nj < cols) {
-                                if(flag == 0 && map[ni][nj] == 0){
-                                    if (rand.nextInt(100) > 71) {
-                                        map[ni][nj] = 2;
-                                        flag = 1;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-
-        return map;
     }
 }
 

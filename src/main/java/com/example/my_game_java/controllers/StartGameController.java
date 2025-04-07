@@ -11,16 +11,12 @@ import com.example.my_game_java.services.Audio.AudioRepository;
 import com.example.my_game_java.services.Scenes.SceneRepository;
 import com.example.my_game_java.services.game.GameRepository;
 import com.example.my_game_java.services.game.JsonFileWriter;
-import com.example.my_game_java.services.game.MapInfo;
 import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -118,9 +114,7 @@ public class StartGameController {
     private void selectWarrior() {
         audioRepository.playClickSound();
         player = new Warrior();
-        int[][] map = gameRepository.generateMap();
-        MapInfo mapInfo = new MapInfo(map, player, "Warrior");
-        JsonFileWriter.saveMapInfo(mapInfo);
+        JsonFileWriter.saveMapInfo(player);
         startGame(player);
     }
 
@@ -128,9 +122,7 @@ public class StartGameController {
     private void selectMage() {
         audioRepository.playClickSound();
         player = new Mage();
-        int[][] map = gameRepository.generateMap();
-        MapInfo mapInfo = new MapInfo(map, player, "Mage");
-        JsonFileWriter.saveMapInfo(mapInfo);
+        JsonFileWriter.saveMapInfo(player);
         startGame(player);
     }
 
@@ -138,9 +130,7 @@ public class StartGameController {
     private void selectRouge() {
         audioRepository.playClickSound();
         player = new Rouge();
-        int[][] map = gameRepository.generateMap();
-        MapInfo mapInfo = new MapInfo(map, player, "Rouge");
-        JsonFileWriter.saveMapInfo(mapInfo);
+        JsonFileWriter.saveMapInfo(player);
         startGame(player);
     }
 
@@ -148,9 +138,7 @@ public class StartGameController {
     private void selectCleric() {
         audioRepository.playClickSound();
         player = new Cleric();
-        int[][] map = gameRepository.generateMap();
-        MapInfo mapInfo = new MapInfo(map, player, "Cleric");
-        JsonFileWriter.saveMapInfo(mapInfo);
+        JsonFileWriter.saveMapInfo(player);
         startGame(player);
     }
 
