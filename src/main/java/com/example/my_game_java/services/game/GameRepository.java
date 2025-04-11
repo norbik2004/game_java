@@ -7,13 +7,16 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import javafx.scene.shape.Rectangle;
 
 import java.util.*;
+import java.util.List;
 
 public class GameRepository implements GameRepositoryInterface {
     private final Queue<String> messageQueue = new LinkedList<>();
@@ -139,6 +142,22 @@ public class GameRepository implements GameRepositoryInterface {
                     break;
             }
         }
+    }
+
+    @Override
+    public void updateStats(List<Label> stats, Character player) {
+        stats.get(0).setText("HEALTH: " + player.getHealth());
+        stats.get(1).setText("ARMOR:  " + player.getArmour());
+        stats.get(2).setText("DAMAGE: " + player.getDamage());
+        stats.get(3).setText("CRITIC: " + player.getCrit_chance());
+        stats.get(4).setText("AR PEN: " + player.getArmour_pen());
+    }
+
+    @Override
+    public void updateHealthBar(Rectangle healthBar) {
+        double currentHealth = PlayerManager.getInstance().getPlayer().getHealth();
+        double newWidth = (300 * (currentHealth / 100));
+        healthBar.setWidth(newWidth);
     }
 }
 

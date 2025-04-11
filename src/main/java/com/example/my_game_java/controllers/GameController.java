@@ -10,6 +10,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextArea;
@@ -69,6 +70,21 @@ public class GameController {
     private Rectangle healthBar;
 
     @FXML
+    private Label health_bar;
+
+    @FXML
+    private Label armor_bar;
+
+    @FXML
+    private Label dmg_bar;
+
+    @FXML
+    private Label crit_bar;
+
+    @FXML
+    private Label armor_pen;
+
+    @FXML
     public void initialize() {
         System.out.println("Initializing Game");
         Character player = PlayerManager.getInstance().getPlayer();
@@ -84,17 +100,18 @@ public class GameController {
 
         audioRepository.switchMusic("/audio/main_music.mp3");
         List<ImageView> icons = Arrays.asList(helmet_icon, main_hand_icon, boots_icon, armor_icon, second_hand_icon);
+        List<Label> stats = Arrays.asList(health_bar, armor_bar, dmg_bar, crit_bar, armor_pen);
 
         //script
         if (player != null) {
             gameRepository.welcomingScript(textArea, player);
             gameRepository.initializeIcons(icons, player);
+
         } else {
             System.out.println("No player selected.");
         }
 
-
-        updateHealthBar();
+        update(stats, player);
 
     }
 
@@ -103,16 +120,9 @@ public class GameController {
         gameRepository.addConsoleText("this button just adds text \n", textArea);
     }
 
-    private void updateHealthBar() {
-        double currentHealth = PlayerManager.getInstance().getPlayer().getHealth();
-        double newWidth = (300 * (currentHealth / 100));
-        healthBar.setWidth(newWidth);
+    public void update(List<Label> stats, Character player) {
+        gameRepository.updateStats(stats, player);
+        gameRepository.updateHealthBar(healthBar);
     }
 
-    @FXML
-    private void update() {
-        Character player = PlayerManager.getInstance().getPlayer();
-        player.setHealth(player.getHealth() - 5);
-        updateHealthBar();
-    }
 }

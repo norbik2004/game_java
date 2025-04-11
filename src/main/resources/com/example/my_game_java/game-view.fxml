@@ -9,6 +9,8 @@
 <?import javafx.scene.shape.Rectangle?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.example.my_game_java.controllers.GameController"
@@ -70,9 +72,11 @@
                     <StackPane prefWidth="480" prefHeight="20">
                         <Rectangle fx:id="healthBar" height="20" width="300" fill="red"/>
                     </StackPane>
-                    <Label text="elo" style="-fx-font-size: 15"/>
-                    <Label text="tutaj" style="-fx-font-size: 15"/>
-                    <Label text="staty" style="-fx-font-size: 15"/>
+                    <Label fx:id="health_bar" text="ELO" style="-fx-font-size: 20px;"/>
+                    <Label fx:id="armor_bar" text="staty" style="-fx-font-size: 20px;"/>
+                    <Label fx:id="dmg_bar" text="staty" style="-fx-font-size: 20px;"/>
+                    <Label fx:id="crit_bar" text="staty" style="-fx-font-size: 20px;"/>
+                    <Label fx:id="armor_pen" text="staty" style="-fx-font-size: 20px;"/>
                 </VBox>
             </VBox>
         </HBox>
