@@ -1,0 +1,1 @@
+{"damage":30,"health":150,"armour":50,"armour_pen":0.3,"crit_chance":0.01,"inventory":{"items":[{"id":3,"name":"Holy Water","icon_path":"/photos/icons/priest_icon.jpg","healthBonus":0,"armorBonus":0,"damageBonus":12}],"totalHealthBonus":0,"totalArmourBonus":0,"totalDamageBonus":12}}

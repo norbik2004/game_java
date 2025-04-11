@@ -1,0 +1,1 @@
+{"damage":30,"health":100,"armour":35,"armour_pen":0.5,"crit_chance":0.5,"inventory":{"items":[{"id":3,"name":"Kitchen Knife","icon_path":"/photos/icons/rouge_icon.jpg","healthBonus":0,"armorBonus":0,"damageBonus":12}],"totalDamageBonus":12,"totalArmourBonus":0,"totalHealthBonus":0}}
