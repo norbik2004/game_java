@@ -27,7 +27,7 @@ public abstract class Character {
         this.inventory = new Inventory(new ArrayList<>());
         this.inventory.addItem(start_item);
         this.current_room = 0;
-        this.rooms_number = random.nextInt(15) + 15;
+        this.rooms_number = random.nextInt(15) + 25;
     }
 
     public abstract void attack();

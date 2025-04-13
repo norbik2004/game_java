@@ -203,17 +203,90 @@ public class GameRepository implements GameRepositoryInterface {
         int rooms = player.getRooms_number();
         ArrayList<Room> rooms_to_return = new ArrayList<>();
 
+
+
         for (int i = 0; i < rooms; i++) {
-            Zombie zombie = new Zombie(1);
-            Zombie zombie2 = new Zombie(2);
-            ArrayList<Enemy> enemies = new ArrayList<>();
-            enemies.add(zombie);
-            enemies.add(zombie2);
-            Room room = new Room(i,"dark room", enemies);
+            Room room = new Room(i,"dark room", generateEnemies(i));
             rooms_to_return.add(room);
         }
 
         return rooms_to_return;
+    }
+
+    /***
+     * 0-10 tier 1
+     * 5-10 50% chance for tier 2
+     * 10-20 tier 2
+     * 15-20 50% chance for tier 3
+     * 20-30 tier 3
+     * 25-30 50% chance for tier 4
+     */
+    private int generateTier(int i){
+        int tier = 1;
+        double chance;
+        Random rand = new Random();
+
+        if(i <= 10) {
+            if(i >=5){
+                chance = rand.nextDouble();
+                if (chance > 0.5) {
+                    tier = 2;
+                }
+            }
+        }else if(i <= 20) {
+            tier = 2;
+            if(i >= 15){
+                chance = rand.nextDouble();
+                if (chance > 0.5) {
+                    tier = 3;
+                }
+            }
+        }else if(i <= 30) {
+            tier = 3;
+            if(i >= 25){
+                chance = rand.nextDouble();
+                if (chance > 0.5) {
+                    tier = 4;
+                }
+            }
+        }else{
+            tier = 4;
+        }
+        return tier;
+    }
+
+    /***
+     * 0 - 10  rooms ONLY one enemy,
+     * 10 - 20 rooms 25% chance for two enemies
+     * 20 - 30 rooms 25% chance for three enemies and two enemies guaranteed
+     */
+    private ArrayList<Enemy> generateEnemies(int i) {
+        Random rand = new Random();
+        rand.nextDouble();
+        double chance;
+        int enemies = 1;
+
+        if(i <= 20){
+            chance = rand.nextDouble();
+            if (chance < 0.25) {
+                enemies = 2;
+            }
+        }else{
+            enemies = 2;
+            chance = rand.nextDouble();
+            if (chance < 0.25) {
+                enemies = 3;
+            }
+        }
+
+        // later generate different type of enemies
+        ArrayList<Enemy> list_enemies = new ArrayList<>();
+        for(int y = 0; y < enemies; y++) {
+            Zombie zombie = new Zombie(generateTier(i));
+            list_enemies.add(zombie);
+        }
+
+        return list_enemies;
     }
 
 }
