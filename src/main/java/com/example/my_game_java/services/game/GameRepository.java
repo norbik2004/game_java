@@ -1,7 +1,10 @@
 package com.example.my_game_java.services.game;
 
+import com.example.my_game_java.game.character.enemy.Enemy;
+import com.example.my_game_java.game.character.enemy.Zombie;
 import com.example.my_game_java.game.character.inventory.Item;
 import com.example.my_game_java.game.character.player.Character;
+import com.example.my_game_java.game.character.room.Room;
 import com.example.my_game_java.game.services.PlayerManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,8 +25,26 @@ public class GameRepository implements GameRepositoryInterface {
     private final Queue<String> messageQueue = new LinkedList<>();
     private boolean isProcessing = false;
 
+    private Runnable onQueueEmpty;
+    private Runnable onQueueNotEmpty;
+
+    public void setOnQueueEmpty(Runnable callback) {
+        this.onQueueEmpty = callback;
+    }
+
+    public void setOnQueueNotEmpty(Runnable callback) {
+        this.onQueueNotEmpty = callback;
+    }
+
     public synchronized void addConsoleText(String text, TextArea console) {
+        boolean wasEmpty = messageQueue.isEmpty();
         messageQueue.offer(text);
+
+        // to notify that queue is no longer empty
+        if (wasEmpty && onQueueNotEmpty != null) {
+            Platform.runLater(onQueueNotEmpty);
+        }
+
         processNext(console);
     }
 
@@ -46,6 +67,10 @@ public class GameRepository implements GameRepositoryInterface {
         timeline.setOnFinished(event -> {
             isProcessing = false;
             processNext(console);
+
+            if (messageQueue.isEmpty() && onQueueEmpty != null) {
+                Platform.runLater(onQueueEmpty);
+            }
         });
 
         Platform.runLater(timeline::play);
@@ -159,5 +184,37 @@ public class GameRepository implements GameRepositoryInterface {
         double newWidth = (300 * (currentHealth / 100));
         healthBar.setWidth(newWidth);
     }
+
+    @Override
+    public boolean checkIfGameOver(Character player) {
+        return player.getHealth() > 0;
+    }
+
+    @Override
+    public void walk(Character player) {
+        int current_room = player.getCurrent_room();
+
+
+        player.setCurrent_room(current_room + 1);
+    }
+
+    @Override
+    public ArrayList<Room> generateRooms(Character player) {
+        int rooms = player.getRooms_number();
+        ArrayList<Room> rooms_to_return = new ArrayList<>();
+
+        for (int i = 0; i < rooms; i++) {
+            Zombie zombie = new Zombie(1);
+            Zombie zombie2 = new Zombie(2);
+            ArrayList<Enemy> enemies = new ArrayList<>();
+            enemies.add(zombie);
+            enemies.add(zombie2);
+            Room room = new Room(i,"dark room", enemies);
+            rooms_to_return.add(room);
+        }
+
+        return rooms_to_return;
+    }
+
 }
 

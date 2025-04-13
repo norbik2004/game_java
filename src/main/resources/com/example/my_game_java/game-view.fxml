@@ -31,16 +31,17 @@
                           style="-fx-control-inner-background: black; -fx-text-fill: white; -fx-font-size: 20;"/>
                 <HBox spacing="20">
                     <VBox spacing="10">
-                        <Button fx:id="addTextButton"
-                                onAction="#addText"/>
-                        <Button fx:id="attack"
-                                onAction="#addText"/>
+                        <Button fx:id="attack" prefWidth="185" prefHeight="70"
+                                onAction="#onAttack"/>
+                        <Button fx:id="addTextButton" prefWidth="185" prefHeight="70"
+                                onAction="#onAttack"/>
                     </VBox>
                     <VBox spacing="10">
-                        <Button fx:id="block"
-                                onAction="#update"/>
-                        <Button fx:id="walk"
-                                onAction="#addText"/>
+                        <Button fx:id="block" prefWidth="185" prefHeight="70"
+                                onAction="#onBlock"
+                        />
+                        <Button fx:id="walk" prefWidth="185" prefHeight="70"
+                                onAction="#onWalk"/>
                     </VBox>
                 </HBox>
             </VBox>

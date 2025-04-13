@@ -5,11 +5,13 @@ import com.example.my_game_java.game.character.player.Cleric;
 import com.example.my_game_java.game.character.player.Mage;
 import com.example.my_game_java.game.character.player.Rouge;
 import com.example.my_game_java.game.character.player.Warrior;
+import com.example.my_game_java.game.character.room.Room;
 import com.example.my_game_java.game.services.PlayerManager;
 import com.example.my_game_java.scenes.GameScene;
 import com.example.my_game_java.services.Audio.AudioRepository;
 import com.example.my_game_java.services.Scenes.SceneRepository;
 import com.example.my_game_java.services.game.GameRepository;
+import com.example.my_game_java.services.game.GameState;
 import com.example.my_game_java.services.game.JsonFileWriter;
 import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
@@ -22,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -114,7 +117,9 @@ public class StartGameController {
     private void selectWarrior() {
         audioRepository.playClickSound();
         player = new Warrior();
-        JsonFileWriter.saveMapInfo(player);
+        ArrayList<Room> rooms = gameRepository.generateRooms(player);
+        GameState state = new GameState(player, rooms);
+        JsonFileWriter.saveGameState(state);
         startGame(player);
     }
 
@@ -122,7 +127,9 @@ public class StartGameController {
     private void selectMage() {
         audioRepository.playClickSound();
         player = new Mage();
-        JsonFileWriter.saveMapInfo(player);
+        ArrayList<Room> rooms = gameRepository.generateRooms(player);
+        GameState state = new GameState(player, rooms);
+        JsonFileWriter.saveGameState(state);
         startGame(player);
     }
 
@@ -130,7 +137,9 @@ public class StartGameController {
     private void selectRouge() {
         audioRepository.playClickSound();
         player = new Rouge();
-        JsonFileWriter.saveMapInfo(player);
+        ArrayList<Room> rooms = gameRepository.generateRooms(player);
+        GameState state = new GameState(player, rooms);
+        JsonFileWriter.saveGameState(state);
         startGame(player);
     }
 
@@ -138,7 +147,9 @@ public class StartGameController {
     private void selectCleric() {
         audioRepository.playClickSound();
         player = new Cleric();
-        JsonFileWriter.saveMapInfo(player);
+        ArrayList<Room> rooms = gameRepository.generateRooms(player);
+        GameState state = new GameState(player, rooms);
+        JsonFileWriter.saveGameState(state);
         startGame(player);
     }
 

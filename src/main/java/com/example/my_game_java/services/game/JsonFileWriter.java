@@ -1,6 +1,5 @@
 package com.example.my_game_java.services.game;
 
-import com.example.my_game_java.game.character.player.Character;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +12,7 @@ public class JsonFileWriter {
     private static final String SAVE_PREFIX = "save_";
     private static final String SAVE_EXTENSION = ".json";
 
-    public static void saveMapInfo(Character player) {
+    public static void saveGameState(GameState gameState) {
         File directory = new File(SAVE_DIRECTORY);
         // if doesnt exist folder
         if (!directory.exists()) {
@@ -45,7 +44,7 @@ public class JsonFileWriter {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-            objectMapper.writeValue(new File(filePath), player);
+            objectMapper.writeValue(new File(filePath), gameState);
             System.out.println("Saved game in: " + filePath);
         } catch (IOException e) {
             e.printStackTrace();

@@ -93,7 +93,7 @@ public class GameController {
                 .getResourceAsStream("/photos/game-main-theme.png")));
         imageView.setImage(image);
         imageView.setOpacity(0.4);
-        addTextButton.setText("DODAJ");
+        addTextButton.setText("ACTION");
         attack.setText("ATTACK");
         walk.setText("WALK");
         block.setText("BLOCK");
@@ -106,18 +106,68 @@ public class GameController {
         if (player != null) {
             gameRepository.welcomingScript(textArea, player);
             gameRepository.initializeIcons(icons, player);
+            update(stats, player);
 
         } else {
             System.out.println("No player selected.");
         }
 
-        update(stats, player);
+        //queues
+
+        gameRepository.setOnQueueNotEmpty(() -> {
+            attack.setDisable(true);
+            walk.setDisable(true);
+            block.setDisable(true);
+            addTextButton.setDisable(true);
+        });
+
+        gameRepository.setOnQueueEmpty(() -> {
+            attack.setDisable(false);
+            walk.setDisable(false);
+            block.setDisable(false);
+            addTextButton.setDisable(false);
+        });
+
+
 
     }
 
     @FXML
-    public void addText() {
-        gameRepository.addConsoleText("this button just adds text \n", textArea);
+    private void onWalk() {
+        gameRepository.addConsoleText("WALKING.....\n", textArea);
+        gameRepository.walk(PlayerManager.getInstance().getPlayer());
+        nextTurn();
+    }
+
+    @FXML
+    private void onBlock() {
+        gameRepository.addConsoleText("You raise your guard...\n", textArea);
+        nextTurn();
+    }
+
+    @FXML
+    private void onAttack() {
+        gameRepository.addConsoleText("You swing your weapon...\n", textArea);
+        nextTurn();
+    }
+
+    private void nextTurn() {
+        Character player = PlayerManager.getInstance().getPlayer();
+        if (player == null) return;
+
+        List<Label> stats = Arrays.asList(health_bar, armor_bar, dmg_bar, crit_bar, armor_pen);
+        update(stats, player);
+
+        if (!gameRepository.checkIfGameOver(player)) {
+            gameRepository.addConsoleText("You died. Game over.\n", textArea);
+            disableActions();
+        }
+    }
+
+    private void disableActions() {
+        attack.setDisable(true);
+        walk.setDisable(true);
+        block.setDisable(true);
     }
 
     public void update(List<Label> stats, Character player) {

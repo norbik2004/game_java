@@ -1,1 +1,403 @@
-{"damage":30,"health":100,"armour":35,"armour_pen":0.5,"crit_chance":0.5,"inventory":{"items":[{"id":3,"name":"Kitchen Knife","icon_path":"/photos/icons/rouge_icon.jpg","healthBonus":0,"armorBonus":0,"damageBonus":12}],"totalArmourBonus":0,"totalDamageBonus":12,"totalHealthBonus":0}}
+{
+  "player": {
+    "damage": 30,
+    "health": 100,
+    "armour": 75,
+    "armour_pen": 0.3,
+    "crit_chance": 0.2,
+    "inventory": {
+      "items": [
+        {
+          "id": 3,
+          "name": "Big Sword",
+          "icon_path": "/photos/icons/warrior_icon.jpg",
+          "healthBonus": 0,
+          "armorBonus": 0,
+          "damageBonus": 12
+        }
+      ],
+      "totalDamageBonus": 12,
+      "totalHealthBonus": 0,
+      "totalArmourBonus": 0
+    },
+    "rooms_number": 15,
+    "current_room": 0
+  },
+  "rooms": [
+    {
+      "id": 0,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 1,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 2,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 3,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 4,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 5,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 6,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 7,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 8,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 9,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 10,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 11,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 12,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 13,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 14,
+      "description": "dark room",
+      "enemies": [
+        {
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        }
+      ],
+      "cleared": false
+    }
+  ]
+}

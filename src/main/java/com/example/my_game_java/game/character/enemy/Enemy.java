@@ -1,6 +1,6 @@
 package com.example.my_game_java.game.character.enemy;
 
-abstract class Enemy {
+public abstract class Enemy {
     protected String name;
     protected int damage;
     protected int health;
