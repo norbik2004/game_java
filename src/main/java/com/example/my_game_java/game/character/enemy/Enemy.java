@@ -59,5 +59,12 @@ public abstract class Enemy {
     //setters
     public void setHealth(int health) {this.health = health;}
 
+    @Override
+    public String toString() {
+        return name + " [Tier: " + tier +
+                ", Health: " + health +
+                ", Damage: " + damage +
+                ", Armour: " + armour + "]";
+    }
 
 }

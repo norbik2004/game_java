@@ -18,7 +18,7 @@ public interface GameRepositoryInterface {
     void updateStats(List<Label> stats, Character player);
     void updateHealthBar(Rectangle healthBar);
     boolean checkIfGameOver(Character player);
-    void walk(Character player);
+    void walk(Character player, TextArea console);
     ArrayList<Room> generateRooms(Character player);
     void playerAttack(List<Enemy> enemies, Character player, TextArea console);
 }

@@ -191,9 +191,27 @@ public class GameRepository implements GameRepositoryInterface {
     }
 
     @Override
-    public void walk(Character player) {
-        int current_room_numb = player.getCurrent_room();
-        player.setCurrent_room(current_room_numb + 1);
+    public void walk(Character player, TextArea console) {
+        int currentRoomNumber = player.getCurrent_room();
+        GameStateManager gameState = GameStateManager.getInstance();
+        Room currentRoom = gameState.getGameState().getRooms().get(currentRoomNumber);
+
+        if (!currentRoom.isCleared()) {
+            addConsoleText("You cannot leave yet! Enemies are still in the room.\n", console);
+            return;
+        }
+
+        player.setCurrent_room(currentRoomNumber + 1);
+        Room newRoom = gameState.getGameState().getRooms().get(player.getCurrent_room());
+        ArrayList<Enemy> enemies = (ArrayList<Enemy>) newRoom.getEnemies();
+
+        addConsoleText("You have walked into room with "
+                + enemies.size()
+                + " enemies: \n", console);
+
+        for (Enemy enemy : enemies) {
+            addConsoleText(enemy.toString() + "\n", console);
+        }
     }
 
     @Override

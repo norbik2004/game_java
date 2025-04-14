@@ -93,6 +93,20 @@ public class GameController {
         Character player = PlayerManager.getInstance().getPlayer();
         GameState gameState = GameStateManager.getInstance().getGameState();
 
+        //queues
+        gameRepository.setOnQueueNotEmpty(() -> {
+            attack.setDisable(true);
+            walk.setDisable(true);
+            block.setDisable(true);
+            addTextButton.setDisable(true);
+        });
+        gameRepository.setOnQueueEmpty(() -> {
+            attack.setDisable(false);
+            walk.setDisable(false);
+            block.setDisable(false);
+            addTextButton.setDisable(false);
+        });
+
         Image image = new Image(Objects.requireNonNull(getClass()
                 .getResourceAsStream("/photos/game-main-theme.png")));
         imageView.setImage(image);
@@ -114,29 +128,12 @@ public class GameController {
         } else {
             System.out.println("No player selected.");
         }
-
-        //queues
-        gameRepository.setOnQueueNotEmpty(() -> {
-            attack.setDisable(true);
-            walk.setDisable(true);
-            block.setDisable(true);
-            addTextButton.setDisable(true);
-        });
-        gameRepository.setOnQueueEmpty(() -> {
-            attack.setDisable(false);
-            walk.setDisable(false);
-            block.setDisable(false);
-            addTextButton.setDisable(false);
-        });
-
-
-
     }
 
     @FXML
     private void onWalk() {
-        gameRepository.addConsoleText("WALKING.....\n", textArea);
-        gameRepository.walk(PlayerManager.getInstance().getPlayer());
+        gameRepository.addConsoleText("Walking... \n", textArea);
+        gameRepository.walk(PlayerManager.getInstance().getPlayer(), textArea);
         nextTurn();
     }
 
