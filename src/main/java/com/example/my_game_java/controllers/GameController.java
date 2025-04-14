@@ -2,9 +2,11 @@ package com.example.my_game_java.controllers;
 
 import com.example.my_game_java.game.character.inventory.Item;
 import com.example.my_game_java.game.character.player.Character;
+import com.example.my_game_java.game.services.GameStateManager;
 import com.example.my_game_java.game.services.PlayerManager;
 import com.example.my_game_java.services.Audio.AudioRepository;
 import com.example.my_game_java.services.game.GameRepository;
+import com.example.my_game_java.services.game.GameState;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -88,6 +90,7 @@ public class GameController {
     public void initialize() {
         System.out.println("Initializing Game");
         Character player = PlayerManager.getInstance().getPlayer();
+        GameState gameState = GameStateManager.getInstance().getGameState();
 
         Image image = new Image(Objects.requireNonNull(getClass()
                 .getResourceAsStream("/photos/game-main-theme.png")));
@@ -107,6 +110,7 @@ public class GameController {
             gameRepository.welcomingScript(textArea, player);
             gameRepository.initializeIcons(icons, player);
             update(stats, player);
+            System.out.println(gameState.getPlayer().getArmour());
 
         } else {
             System.out.println("No player selected.");

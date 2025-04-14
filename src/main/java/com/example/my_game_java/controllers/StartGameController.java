@@ -6,6 +6,7 @@ import com.example.my_game_java.game.character.player.Mage;
 import com.example.my_game_java.game.character.player.Rouge;
 import com.example.my_game_java.game.character.player.Warrior;
 import com.example.my_game_java.game.character.room.Room;
+import com.example.my_game_java.game.services.GameStateManager;
 import com.example.my_game_java.game.services.PlayerManager;
 import com.example.my_game_java.scenes.GameScene;
 import com.example.my_game_java.services.Audio.AudioRepository;
@@ -120,7 +121,7 @@ public class StartGameController {
         ArrayList<Room> rooms = gameRepository.generateRooms(player);
         GameState state = new GameState(player, rooms);
         JsonFileWriter.saveGameState(state);
-        startGame(player);
+        startGame(player, state);
     }
 
     @FXML
@@ -130,7 +131,7 @@ public class StartGameController {
         ArrayList<Room> rooms = gameRepository.generateRooms(player);
         GameState state = new GameState(player, rooms);
         JsonFileWriter.saveGameState(state);
-        startGame(player);
+        startGame(player, state);
     }
 
     @FXML
@@ -140,7 +141,7 @@ public class StartGameController {
         ArrayList<Room> rooms = gameRepository.generateRooms(player);
         GameState state = new GameState(player, rooms);
         JsonFileWriter.saveGameState(state);
-        startGame(player);
+        startGame(player, state);
     }
 
     @FXML
@@ -150,13 +151,14 @@ public class StartGameController {
         ArrayList<Room> rooms = gameRepository.generateRooms(player);
         GameState state = new GameState(player, rooms);
         JsonFileWriter.saveGameState(state);
-        startGame(player);
+        startGame(player, state);
     }
 
-    private void startGame(Character player) {
+    private void startGame(Character player, GameState state) {
         System.out.println("Selected player: " + player.getClass().getSimpleName());
 
         PlayerManager.getInstance().setPlayer(player);
+        GameStateManager.getInstance().setGameState(state);
 
         outro.setOnFinished(event -> {
             try {
