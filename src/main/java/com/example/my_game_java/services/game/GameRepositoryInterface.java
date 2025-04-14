@@ -1,4 +1,5 @@
 package com.example.my_game_java.services.game;
+import com.example.my_game_java.game.character.enemy.Enemy;
 import com.example.my_game_java.game.character.player.Character;
 
 import com.example.my_game_java.game.character.room.Room;
@@ -19,4 +20,5 @@ public interface GameRepositoryInterface {
     boolean checkIfGameOver(Character player);
     void walk(Character player);
     ArrayList<Room> generateRooms(Character player);
+    void playerAttack(List<Enemy> enemies, Character player, TextArea console);
 }

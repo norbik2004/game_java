@@ -5,11 +5,11 @@ import com.example.my_game_java.game.character.enemy.Zombie;
 import com.example.my_game_java.game.character.inventory.Item;
 import com.example.my_game_java.game.character.player.Character;
 import com.example.my_game_java.game.character.room.Room;
+import com.example.my_game_java.game.services.GameStateManager;
 import com.example.my_game_java.game.services.PlayerManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
@@ -142,7 +142,7 @@ public class GameRepository implements GameRepositoryInterface {
                     tooltip_armor.setText(item.getName() + " dmg: " + item.getDamageBonus());
                     armor_icon.setImage(new Image(Objects.requireNonNull(getClass().
                             getResourceAsStream(item.getIcon_path()))));
-                    Tooltip.install(main_hand_icon, tooltip_armor);
+                    Tooltip.install(armor_icon, tooltip_armor);
                     break;
                 case 3:
                     Tooltip tooltip_main_weapon = new Tooltip();
@@ -192,10 +192,8 @@ public class GameRepository implements GameRepositoryInterface {
 
     @Override
     public void walk(Character player) {
-        int current_room = player.getCurrent_room();
-
-
-        player.setCurrent_room(current_room + 1);
+        int current_room_numb = player.getCurrent_room();
+        player.setCurrent_room(current_room_numb + 1);
     }
 
     @Override
@@ -211,6 +209,36 @@ public class GameRepository implements GameRepositoryInterface {
         }
 
         return rooms_to_return;
+    }
+
+    public void playerAttack(List<Enemy> enemies, Character player, TextArea console) {
+        if (enemies.isEmpty()) {
+            addConsoleText("No enemies in the room.\n", console);
+            return;
+        }
+
+        Enemy target = enemies.get(0); // For simplicity, target first enemy
+        int damageDealt = Math.max(0, player.getDamage() - target.getArmour());
+        target.setHealth(target.getHealth() - damageDealt);
+
+        addConsoleText("You hit " + target.getName() + " for " + damageDealt + " damage!\n", console);
+
+        if (target.getHealth() <= 0) {
+            addConsoleText(target.getName() + " has been defeated!\n", console);
+            enemies.remove(target);
+        } else {
+            int enemyDamage = Math.max(0, target.getDamage() - player.getArmour());
+            player.setHealth(player.getHealth() - enemyDamage);
+            addConsoleText(target.getName() + " retaliates for " + enemyDamage + " damage!\n", console);
+        }
+
+        // Check if room is cleared
+        Room room = GameStateManager.getInstance().getGameState()
+                .getRooms().get(player.getCurrent_room());
+
+        if (room.isCleared()) {
+            addConsoleText("Room cleared!\n", console);
+        }
     }
 
     /***
@@ -278,6 +306,8 @@ public class GameRepository implements GameRepositoryInterface {
                 enemies = 3;
             }
         }
+
+        if (i == 0) enemies = 0;
 
         // later generate different type of enemies
         ArrayList<Enemy> list_enemies = new ArrayList<>();

@@ -2,6 +2,7 @@ package com.example.my_game_java.controllers;
 
 import com.example.my_game_java.game.character.inventory.Item;
 import com.example.my_game_java.game.character.player.Character;
+import com.example.my_game_java.game.character.room.Room;
 import com.example.my_game_java.game.services.GameStateManager;
 import com.example.my_game_java.game.services.PlayerManager;
 import com.example.my_game_java.services.Audio.AudioRepository;
@@ -110,21 +111,17 @@ public class GameController {
             gameRepository.welcomingScript(textArea, player);
             gameRepository.initializeIcons(icons, player);
             update(stats, player);
-            System.out.println(gameState.getPlayer().getArmour());
-
         } else {
             System.out.println("No player selected.");
         }
 
         //queues
-
         gameRepository.setOnQueueNotEmpty(() -> {
             attack.setDisable(true);
             walk.setDisable(true);
             block.setDisable(true);
             addTextButton.setDisable(true);
         });
-
         gameRepository.setOnQueueEmpty(() -> {
             attack.setDisable(false);
             walk.setDisable(false);
@@ -151,13 +148,30 @@ public class GameController {
 
     @FXML
     private void onAttack() {
-        gameRepository.addConsoleText("You swing your weapon...\n", textArea);
+        Character player = PlayerManager.getInstance().getPlayer();
+        GameState gamestate = GameStateManager.getInstance().getGameState();
+        Room currentRoom = gamestate.getRooms().get(player.getCurrent_room());
+
+        if (!currentRoom.getEnemies().isEmpty()) {
+            gameRepository.playerAttack(currentRoom.getEnemies(), player, textArea);
+        } else {
+            gameRepository.addConsoleText("There are no enemies to attack.\n", textArea);
+        }
+
         nextTurn();
     }
 
     private void nextTurn() {
         Character player = PlayerManager.getInstance().getPlayer();
-        if (player == null) return;
+        GameState gamestate = GameStateManager.getInstance().getGameState();
+        Room current_room = gamestate.getRooms().get(player.getCurrent_room());
+        if(current_room.isCleared()) {
+            System.out.println("Cleared");
+        }else{
+
+            System.out.println("Player must fight in room " + player.getCurrent_room());
+        }
+
 
         List<Label> stats = Arrays.asList(health_bar, armor_bar, dmg_bar, crit_bar, armor_pen);
         update(stats, player);

@@ -2,15 +2,15 @@
   "player": {
     "damage": 30,
     "health": 100,
-    "armour": 75,
-    "armour_pen": 0.3,
-    "crit_chance": 0.2,
+    "armour": 35,
+    "armour_pen": 0.5,
+    "crit_chance": 0.5,
     "inventory": {
       "items": [
         {
           "id": 3,
-          "name": "Big Sword",
-          "icon_path": "/photos/icons/warrior_icon.jpg",
+          "name": "Kitchen Knife",
+          "icon_path": "/photos/icons/rouge_icon.jpg",
           "healthBonus": 0,
           "armorBonus": 0,
           "damageBonus": 12
@@ -24,22 +24,6 @@
     "current_room": 0
   },
   "rooms": [
-    {
-      "id": 0,
-      "description": "dark room",
-      "enemies": [
-        {
-          "name": "Handicapped Zombie",
-          "damage": 9,
-          "health": 24,
-          "armour": 24,
-          "armour_pen": 0.08000000000000002,
-          "crit_chance": 0.008,
-          "tier": 1
-        }
-      ],
-      "cleared": false
-    },
     {
       "id": 1,
       "description": "dark room",
@@ -68,15 +52,6 @@
           "armour_pen": 0.08000000000000002,
           "crit_chance": 0.008,
           "tier": 1
-        },
-        {
-          "name": "Handicapped Zombie",
-          "damage": 9,
-          "health": 24,
-          "armour": 24,
-          "armour_pen": 0.08000000000000002,
-          "crit_chance": 0.008,
-          "tier": 1
         }
       ],
       "cleared": false
@@ -85,15 +60,6 @@
       "id": 3,
       "description": "dark room",
       "enemies": [
-        {
-          "name": "Handicapped Zombie",
-          "damage": 9,
-          "health": 24,
-          "armour": 24,
-          "armour_pen": 0.08000000000000002,
-          "crit_chance": 0.008,
-          "tier": 1
-        },
         {
           "name": "Handicapped Zombie",
           "damage": 9,
@@ -118,7 +84,14 @@
           "armour_pen": 0.08000000000000002,
           "crit_chance": 0.008,
           "tier": 1
-        },
+        }
+      ],
+      "cleared": false
+    },
+    {
+      "id": 5,
+      "description": "dark room",
+      "enemies": [
         {
           "name": "Handicapped Zombie",
           "damage": 9,
@@ -132,7 +105,7 @@
       "cleared": false
     },
     {
-      "id": 5,
+      "id": 6,
       "description": "dark room",
       "enemies": [
         {
@@ -144,22 +117,6 @@
           "crit_chance": 0.011000000000000001,
           "tier": 2
         },
-        {
-          "name": "Weak Zombie",
-          "damage": 13,
-          "health": 33,
-          "armour": 33,
-          "armour_pen": 0.11000000000000001,
-          "crit_chance": 0.011000000000000001,
-          "tier": 2
-        }
-      ],
-      "cleared": false
-    },
-    {
-      "id": 6,
-      "description": "dark room",
-      "enemies": [
         {
           "name": "Weak Zombie",
           "damage": 13,
@@ -177,13 +134,13 @@
       "description": "dark room",
       "enemies": [
         {
-          "name": "Handicapped Zombie",
-          "damage": 9,
-          "health": 24,
-          "armour": 24,
-          "armour_pen": 0.08000000000000002,
-          "crit_chance": 0.008,
-          "tier": 1
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
         }
       ],
       "cleared": false
@@ -193,13 +150,13 @@
       "description": "dark room",
       "enemies": [
         {
-          "name": "Handicapped Zombie",
-          "damage": 9,
-          "health": 24,
-          "armour": 24,
-          "armour_pen": 0.08000000000000002,
-          "crit_chance": 0.008,
-          "tier": 1
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
         }
       ],
       "cleared": false
@@ -225,13 +182,13 @@
       "description": "dark room",
       "enemies": [
         {
-          "name": "Weak Zombie",
-          "damage": 13,
-          "health": 33,
-          "armour": 33,
-          "armour_pen": 0.11000000000000001,
-          "crit_chance": 0.011000000000000001,
-          "tier": 2
+          "name": "Handicapped Zombie",
+          "damage": 9,
+          "health": 24,
+          "armour": 24,
+          "armour_pen": 0.08000000000000002,
+          "crit_chance": 0.008,
+          "tier": 1
         }
       ],
       "cleared": false
@@ -240,15 +197,6 @@
       "id": 11,
       "description": "dark room",
       "enemies": [
-        {
-          "name": "Weak Zombie",
-          "damage": 13,
-          "health": 33,
-          "armour": 33,
-          "armour_pen": 0.11000000000000001,
-          "crit_chance": 0.011000000000000001,
-          "tier": 2
-        },
         {
           "name": "Weak Zombie",
           "damage": 13,
@@ -323,15 +271,6 @@
       "description": "dark room",
       "enemies": [
         {
-          "name": "Strong Zombie",
-          "damage": 18,
-          "health": 45,
-          "armour": 45,
-          "armour_pen": 0.15000000000000002,
-          "crit_chance": 0.015,
-          "tier": 3
-        },
-        {
           "name": "Weak Zombie",
           "damage": 13,
           "health": 33,
@@ -339,6 +278,15 @@
           "armour_pen": 0.11000000000000001,
           "crit_chance": 0.011000000000000001,
           "tier": 2
+        },
+        {
+          "name": "Strong Zombie",
+          "damage": 18,
+          "health": 45,
+          "armour": 45,
+          "armour_pen": 0.15000000000000002,
+          "crit_chance": 0.015,
+          "tier": 3
         }
       ],
       "cleared": false
@@ -347,6 +295,15 @@
       "id": 16,
       "description": "dark room",
       "enemies": [
+        {
+          "name": "Strong Zombie",
+          "damage": 18,
+          "health": 45,
+          "armour": 45,
+          "armour_pen": 0.15000000000000002,
+          "crit_chance": 0.015,
+          "tier": 3
+        },
         {
           "name": "Strong Zombie",
           "damage": 18,
@@ -380,13 +337,22 @@
       "description": "dark room",
       "enemies": [
         {
-          "name": "Strong Zombie",
-          "damage": 18,
-          "health": 45,
-          "armour": 45,
-          "armour_pen": 0.15000000000000002,
-          "crit_chance": 0.015,
-          "tier": 3
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
+        },
+        {
+          "name": "Weak Zombie",
+          "damage": 13,
+          "health": 33,
+          "armour": 33,
+          "armour_pen": 0.11000000000000001,
+          "crit_chance": 0.011000000000000001,
+          "tier": 2
         }
       ],
       "cleared": false
@@ -419,15 +385,6 @@
           "armour_pen": 0.11000000000000001,
           "crit_chance": 0.011000000000000001,
           "tier": 2
-        },
-        {
-          "name": "Strong Zombie",
-          "damage": 18,
-          "health": 45,
-          "armour": 45,
-          "armour_pen": 0.15000000000000002,
-          "crit_chance": 0.015,
-          "tier": 3
         }
       ],
       "cleared": false
@@ -461,15 +418,6 @@
       "id": 22,
       "description": "dark room",
       "enemies": [
-        {
-          "name": "Strong Zombie",
-          "damage": 18,
-          "health": 45,
-          "armour": 45,
-          "armour_pen": 0.15000000000000002,
-          "crit_chance": 0.015,
-          "tier": 3
-        },
         {
           "name": "Strong Zombie",
           "damage": 18,
@@ -555,6 +503,15 @@
           "tier": 4
         },
         {
+          "name": "Strong Zombie",
+          "damage": 18,
+          "health": 45,
+          "armour": 45,
+          "armour_pen": 0.15000000000000002,
+          "crit_chance": 0.015,
+          "tier": 3
+        },
+        {
           "name": "Elite Zombie",
           "damage": 22,
           "health": 57,
@@ -580,13 +537,13 @@
           "tier": 3
         },
         {
-          "name": "Elite Zombie",
-          "damage": 22,
-          "health": 57,
-          "armour": 57,
-          "armour_pen": 0.19,
-          "crit_chance": 0.019,
-          "tier": 4
+          "name": "Strong Zombie",
+          "damage": 18,
+          "health": 45,
+          "armour": 45,
+          "armour_pen": 0.15000000000000002,
+          "crit_chance": 0.015,
+          "tier": 3
         }
       ],
       "cleared": false
@@ -605,13 +562,13 @@
           "tier": 3
         },
         {
-          "name": "Strong Zombie",
-          "damage": 18,
-          "health": 45,
-          "armour": 45,
-          "armour_pen": 0.15000000000000002,
-          "crit_chance": 0.015,
-          "tier": 3
+          "name": "Elite Zombie",
+          "damage": 22,
+          "health": 57,
+          "armour": 57,
+          "armour_pen": 0.19,
+          "crit_chance": 0.019,
+          "tier": 4
         }
       ],
       "cleared": false
@@ -620,15 +577,6 @@
       "id": 28,
       "description": "dark room",
       "enemies": [
-        {
-          "name": "Strong Zombie",
-          "damage": 18,
-          "health": 45,
-          "armour": 45,
-          "armour_pen": 0.15000000000000002,
-          "crit_chance": 0.015,
-          "tier": 3
-        },
         {
           "name": "Elite Zombie",
           "damage": 22,
@@ -639,13 +587,13 @@
           "tier": 4
         },
         {
-          "name": "Strong Zombie",
-          "damage": 18,
-          "health": 45,
-          "armour": 45,
-          "armour_pen": 0.15000000000000002,
-          "crit_chance": 0.015,
-          "tier": 3
+          "name": "Elite Zombie",
+          "damage": 22,
+          "health": 57,
+          "armour": 57,
+          "armour_pen": 0.19,
+          "crit_chance": 0.019,
+          "tier": 4
         }
       ],
       "cleared": false
@@ -671,15 +619,6 @@
           "armour_pen": 0.19,
           "crit_chance": 0.019,
           "tier": 4
-        },
-        {
-          "name": "Strong Zombie",
-          "damage": 18,
-          "health": 45,
-          "armour": 45,
-          "armour_pen": 0.15000000000000002,
-          "crit_chance": 0.015,
-          "tier": 3
         }
       ],
       "cleared": false
@@ -698,13 +637,13 @@
           "tier": 3
         },
         {
-          "name": "Elite Zombie",
-          "damage": 22,
-          "health": 57,
-          "armour": 57,
-          "armour_pen": 0.19,
-          "crit_chance": 0.019,
-          "tier": 4
+          "name": "Strong Zombie",
+          "damage": 18,
+          "health": 45,
+          "armour": 45,
+          "armour_pen": 0.15000000000000002,
+          "crit_chance": 0.015,
+          "tier": 3
         }
       ],
       "cleared": false
