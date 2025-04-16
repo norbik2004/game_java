@@ -236,16 +236,21 @@ public class GameRepository implements GameRepositoryInterface {
         }
 
         Enemy target = enemies.get(0); // For simplicity, target first enemy
-        int damageDealt = Math.max(0, player.getDamage() - target.getArmour());
+        int damageDealt = (int) (player.getDamage() - (target.getArmour() -
+                (target.getArmour() * player.getArmour_pen())));
+
         target.setHealth(target.getHealth() - damageDealt);
 
         addConsoleText("You hit " + target.getName() + " for " + damageDealt + " damage!\n", console);
+        addConsoleText("Enemy has now: " + target.getHealth() + "hp \n", console);
 
         if (target.getHealth() <= 0) {
             addConsoleText(target.getName() + " has been defeated!\n", console);
             enemies.remove(target);
         } else {
-            int enemyDamage = Math.max(0, target.getDamage() - player.getArmour());
+            int enemyDamage = (int) (target.getDamage() - (player.getArmour() -
+                                (player.getArmour() * target.getArmour_pen())));
+
             player.setHealth(player.getHealth() - enemyDamage);
             addConsoleText(target.getName() + " retaliates for " + enemyDamage + " damage!\n", console);
         }
