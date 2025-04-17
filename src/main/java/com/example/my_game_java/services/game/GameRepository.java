@@ -1,7 +1,6 @@
 package com.example.my_game_java.services.game;
 
-import com.example.my_game_java.game.character.enemy.Enemy;
-import com.example.my_game_java.game.character.enemy.Zombie;
+import com.example.my_game_java.game.character.enemy.*;
 import com.example.my_game_java.game.character.inventory.Item;
 import com.example.my_game_java.game.character.player.Character;
 import com.example.my_game_java.game.character.room.Room;
@@ -220,9 +219,8 @@ public class GameRepository implements GameRepositoryInterface {
         ArrayList<Room> rooms_to_return = new ArrayList<>();
 
 
-
         for (int i = 0; i < rooms; i++) {
-            Room room = new Room(i,"dark room", generateEnemies(i));
+            Room room = new Room(i, "dark room", generateEnemies(i));
             rooms_to_return.add(room);
         }
 
@@ -230,14 +228,23 @@ public class GameRepository implements GameRepositoryInterface {
     }
 
     public void playerAttack(List<Enemy> enemies, Character player, TextArea console) {
+        Random random = new Random();
         if (enemies.isEmpty()) {
             addConsoleText("No enemies in the room.\n", console);
             return;
         }
 
-        Enemy target = enemies.get(0); // For simplicity, target first enemy
+        Enemy target = enemies.get(0);
         int damageDealt = (int) (player.getDamage() - (target.getArmour() -
                 (target.getArmour() * player.getArmour_pen())));
+
+        if (damageDealt < 0) damageDealt = 0;
+        double chance = random.nextDouble();
+
+        if(player.getCrit_chance() > chance) {
+            damageDealt *= 2;
+            addConsoleText("Critical hit! \n", console);
+        }
 
         target.setHealth(target.getHealth() - damageDealt);
 
@@ -249,7 +256,15 @@ public class GameRepository implements GameRepositoryInterface {
             enemies.remove(target);
         } else {
             int enemyDamage = (int) (target.getDamage() - (player.getArmour() -
-                                (player.getArmour() * target.getArmour_pen())));
+                    (player.getArmour() * target.getArmour_pen())));
+
+            if (enemyDamage < 0) enemyDamage = 0;
+            double chance2 = random.nextDouble();
+
+            if(target.getCrit_chance() > chance2) {
+                enemyDamage *= 2;
+                addConsoleText("Critical hit from the enemy! \n", console);
+            }
 
             player.setHealth(player.getHealth() - enemyDamage);
             addConsoleText(target.getName() + " retaliates for " + enemyDamage + " damage!\n", console);
@@ -272,35 +287,35 @@ public class GameRepository implements GameRepositoryInterface {
      * 20-30 tier 3
      * 25-30 50% chance for tier 4
      */
-    private int generateTier(int i){
+    private int generateTier(int i) {
         int tier = 1;
         double chance;
         Random rand = new Random();
 
-        if(i <= 10) {
-            if(i >=5){
+        if (i <= 10) {
+            if (i >= 5) {
                 chance = rand.nextDouble();
                 if (chance > 0.5) {
                     tier = 2;
                 }
             }
-        }else if(i <= 20) {
+        } else if (i <= 20) {
             tier = 2;
-            if(i >= 15){
+            if (i >= 15) {
                 chance = rand.nextDouble();
                 if (chance > 0.5) {
                     tier = 3;
                 }
             }
-        }else if(i <= 30) {
+        } else if (i <= 30) {
             tier = 3;
-            if(i >= 25){
+            if (i >= 25) {
                 chance = rand.nextDouble();
                 if (chance > 0.5) {
                     tier = 4;
                 }
             }
-        }else{
+        } else {
             tier = 4;
         }
         return tier;
@@ -317,12 +332,12 @@ public class GameRepository implements GameRepositoryInterface {
         double chance;
         int enemies = 1;
 
-        if(i <= 20){
+        if (i <= 20) {
             chance = rand.nextDouble();
             if (chance < 0.25) {
                 enemies = 2;
             }
-        }else{
+        } else {
             enemies = 2;
             chance = rand.nextDouble();
             if (chance < 0.25) {
@@ -334,9 +349,28 @@ public class GameRepository implements GameRepositoryInterface {
 
         // later generate different type of enemies
         ArrayList<Enemy> list_enemies = new ArrayList<>();
-        for(int y = 0; y < enemies; y++) {
-            Zombie zombie = new Zombie(generateTier(i));
-            list_enemies.add(zombie);
+        for (int y = 0; y < enemies; y++) {
+            switch (rand.nextInt(4)) {
+                case 0:
+                    Zombie zombie = new Zombie(generateTier(i));
+                    list_enemies.add(zombie);
+                    break;
+                case 1:
+                    Wizard wizard = new Wizard(generateTier(i));
+                    list_enemies.add(wizard);
+                    break;
+                case 2:
+                    Skeleton skeleton = new Skeleton(generateTier(i));
+                    list_enemies.add(skeleton);
+                    break;
+                case 3:
+                    Ghost ghost = new Ghost(generateTier(i));
+                    list_enemies.add(ghost);
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         return list_enemies;

@@ -43,9 +43,6 @@ public abstract class Enemy {
         };
     }
 
-    public abstract void attack();
-
-    public abstract void defend();
 
     //getters
     public int getDamage() {return damage;}
