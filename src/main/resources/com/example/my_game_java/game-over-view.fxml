@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.my_game_java.controllers.GameOverController"
+           prefHeight="400.0" prefWidth="600.0"
+           style="-fx-background-color: black;"
+           stylesheets="@css/styles.css">
+
+    <Label text="GAME OVER" fx:id="label"
+           />
+
+</StackPane>
+

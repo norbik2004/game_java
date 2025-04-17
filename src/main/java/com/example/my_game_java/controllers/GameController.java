@@ -5,36 +5,48 @@ import com.example.my_game_java.game.character.player.Character;
 import com.example.my_game_java.game.character.room.Room;
 import com.example.my_game_java.game.services.GameStateManager;
 import com.example.my_game_java.game.services.PlayerManager;
+import com.example.my_game_java.scenes.GameOverScene;
+import com.example.my_game_java.scenes.MainMenuScene;
 import com.example.my_game_java.services.Audio.AudioRepository;
+import com.example.my_game_java.services.Scenes.SceneRepository;
 import com.example.my_game_java.services.game.GameRepository;
 import com.example.my_game_java.services.game.GameState;
 import javafx.animation.KeyFrame;
+import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextArea;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.control.Tooltip;
 
 import javax.tools.Tool;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class GameController {
     private final AudioRepository audioRepository;
     private final GameRepository gameRepository;
+    private final SceneRepository sceneRepository;
     private boolean isInCombat = false;
+    private ParallelTransition outro;
 
     public GameController() {
         this.audioRepository = new AudioRepository();
         this.gameRepository = new GameRepository();
+        this.sceneRepository = new SceneRepository();
     }
 
     @FXML
@@ -92,7 +104,6 @@ public class GameController {
     public void initialize() {
         System.out.println("Initializing Game");
         Character player = PlayerManager.getInstance().getPlayer();
-        GameState gameState = GameStateManager.getInstance().getGameState();
 
         //queues
         gameRepository.setOnQueueNotEmpty(() -> {
@@ -120,15 +131,25 @@ public class GameController {
         audioRepository.switchMusic("/audio/main_music.mp3");
         List<ImageView> icons = Arrays.asList(helmet_icon, main_hand_icon, boots_icon, armor_icon, second_hand_icon);
         List<Label> stats = Arrays.asList(health_bar, armor_bar, dmg_bar, crit_bar, armor_pen);
+        List<Node> nodes = Arrays.asList(imageView,textArea,helmet_icon,main_hand_icon,second_hand_icon,boots_icon,armor_icon,
+                addTextButton,attack,walk,block,health_bar,healthBar,armor_bar,dmg_bar,crit_bar,armor_pen);
+
+
+
 
         //script
         if (player != null) {
             gameRepository.welcomingScript(textArea, player);
             gameRepository.initializeIcons(icons, player);
+
             update(stats, player);
         } else {
             System.out.println("No player selected.");
         }
+
+        ParallelTransition intro = sceneRepository.getSceneParallelTransition(nodes, true);
+        outro = sceneRepository.getSceneParallelTransition(nodes, false);
+        intro.play();
     }
 
     @FXML
@@ -184,6 +205,10 @@ public class GameController {
 
         if (!gameRepository.checkIfGameOver(player)) {
             gameRepository.addConsoleText("You died. Game over.\n", textArea);
+            audioRepository.switchMusic("/audio/game_over.mp3");
+            Executors.newSingleThreadScheduledExecutor().schedule(() -> {
+                gameOver(outro);
+            }, 6, TimeUnit.SECONDS);
             disableActions();
         }
     }
@@ -197,6 +222,22 @@ public class GameController {
     public void update(List<Label> stats, Character player) {
         gameRepository.updateStats(stats, player);
         gameRepository.updateHealthBar(healthBar);
+    }
+
+    public void gameOver(ParallelTransition outro) {
+        outro.setOnFinished(event ->{
+            //change
+            Scene gameOverScene;
+            try {
+                gameOverScene = new GameOverScene().getScene();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            Stage stage = (Stage) imageView.getScene().getWindow();
+            stage.setTitle("Game Over");
+            stage.setScene(gameOverScene);
+        });
+        outro.play();
     }
 
 }
