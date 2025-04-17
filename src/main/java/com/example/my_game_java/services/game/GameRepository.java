@@ -20,6 +20,9 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class GameRepository implements GameRepositoryInterface {
     private final Queue<String> messageQueue = new LinkedList<>();
@@ -273,10 +276,16 @@ public class GameRepository implements GameRepositoryInterface {
                 addConsoleText("Critical hit from the enemy! \n", console);
             }
 
+            audioRepository.playEffect(target.getAttack_sound_path());
+
             player.setHealth(player.getHealth() - enemyDamage);
 
+
             addConsoleText(target.getName() + " retaliates for " + enemyDamage + " damage!\n", console);
-            //audioRepository.playEffect("/audio/player_hurt.mp3");
+
+            Executors.newSingleThreadScheduledExecutor().schedule(() -> {
+                audioRepository.playEffect("/audio/player_hurt.mp3");
+            }, 1, TimeUnit.SECONDS);
 
             if(player.getHealth() < 0) {
                 player.setHealth(0);

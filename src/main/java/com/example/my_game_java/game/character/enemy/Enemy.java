@@ -8,9 +8,10 @@ public abstract class Enemy {
     protected double armour_pen;
     protected double crit_chance;
     protected int tier;
+    protected String attack_sound_path;
 
     public Enemy(String baseName, int damage, int health, int armour, double armour_pen,
-                 double crit_chance, int tier) {
+                 double crit_chance, int tier, String attack_sound_path) {
         this.tier = tier;
         this.name = generateTierName(baseName);
 
@@ -21,6 +22,7 @@ public abstract class Enemy {
         this.armour = (int) (armour * multiplier);
         this.armour_pen = armour_pen * multiplier;
         this.crit_chance = crit_chance * multiplier;
+        this.attack_sound_path = attack_sound_path;
     }
 
     private double getTierMultiplier(int tier) {
@@ -52,6 +54,7 @@ public abstract class Enemy {
     public double getCrit_chance() {return crit_chance;}
     public int getTier() {return tier;}
     public String getName() {return name;}
+    public String getAttack_sound_path() {return attack_sound_path;}
 
     //setters
     public void setHealth(int health) {this.health = health;}
