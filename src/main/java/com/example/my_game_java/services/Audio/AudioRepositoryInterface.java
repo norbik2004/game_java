@@ -4,10 +4,11 @@ public interface AudioRepositoryInterface {
 
     void playMusic(String path);
 
-    void playClickSound();
+    void playEffect(String path);
 
     void stopMusic();
 
     void switchMusic(String path);
+
 
 }

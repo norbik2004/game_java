@@ -93,7 +93,7 @@ public class MainMenuController {
     }
 
     private void handleStartGame(ParallelTransition outro) {
-        audioRepository.playClickSound();
+        audioRepository.playEffect("/audio/button_click.mp3");
 
         outro.setOnFinished(event -> {
             StartGameScene startGameScene;
@@ -112,11 +112,11 @@ public class MainMenuController {
 
     private void handleLoadGame() {
         System.out.println("Load game clicked!");
-        audioRepository.playClickSound();
+        audioRepository.playEffect("/audio/button_click.mp3");
     }
 
     private void handleOptions(ParallelTransition outro) throws IOException {
-        audioRepository.playClickSound();
+        audioRepository.playEffect("/audio/button_click.mp3");
 
         outro.setOnFinished(event -> {
             OptionsScene optionsScene;
@@ -135,7 +135,7 @@ public class MainMenuController {
 
     private void handleExitGame() {
         System.out.println("Exit game clicked!");
-        audioRepository.playClickSound();
+        audioRepository.playEffect("/audio/button_click.mp3");
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
     }

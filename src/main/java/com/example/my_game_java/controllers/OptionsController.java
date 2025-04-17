@@ -68,7 +68,7 @@ public class OptionsController {
 
         applyButton.setOnAction(event -> {
             try {
-                audioRepository.playClickSound();
+                audioRepository.playEffect("/audio/button_click.mp3");
                 Settings updatedSettings = new Settings();
                 updatedSettings.setMusic_on(musicCheckBox.isSelected());
                 updatedSettings.setScreen_height(720);
@@ -87,7 +87,7 @@ public class OptionsController {
         });
 
         backButton.setOnAction(event -> {
-            audioRepository.playClickSound();
+            audioRepository.playEffect("/audio/button_click.mp3");
             outro.play();
 
             outro.setOnFinished(e -> {

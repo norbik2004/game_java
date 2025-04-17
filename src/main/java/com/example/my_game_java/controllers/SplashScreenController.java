@@ -64,7 +64,7 @@ public class SplashScreenController {
 
 
         button_main.setOnAction(e -> {
-            audioRepository.playClickSound();
+            audioRepository.playEffect("/audio/button_click.mp3");
             button_main.setDisable(true);
 
             outro.setOnFinished(event ->{

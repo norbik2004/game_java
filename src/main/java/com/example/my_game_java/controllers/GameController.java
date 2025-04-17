@@ -30,6 +30,7 @@ import java.util.Objects;
 public class GameController {
     private final AudioRepository audioRepository;
     private final GameRepository gameRepository;
+    private boolean isInCombat = false;
 
     public GameController() {
         this.audioRepository = new AudioRepository();
@@ -162,11 +163,19 @@ public class GameController {
         Character player = PlayerManager.getInstance().getPlayer();
         GameState gamestate = GameStateManager.getInstance().getGameState();
         Room current_room = gamestate.getRooms().get(player.getCurrent_room());
-        if(current_room.isCleared()) {
-            System.out.println("Cleared");
-        }else{
 
-            System.out.println("Player must fight in room " + player.getCurrent_room());
+        if (current_room.isCleared()) {
+            System.out.println("Cleared");
+            if (isInCombat) {
+                audioRepository.switchMusic("/audio/main_music.mp3");
+                isInCombat = false;
+            }
+        } else {
+            if (!isInCombat) {
+                audioRepository.switchMusic("/audio/fight_music.mp3");
+                System.out.println("Player must fight in room " + player.getCurrent_room());
+                isInCombat = true;
+            }
         }
 
 

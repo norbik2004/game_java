@@ -27,9 +27,9 @@ public class AudioRepository implements AudioRepositoryInterface {
     }
 
     @Override
-    public void playClickSound() {
+    public void playEffect(String path) {
         AudioClip sound = new AudioClip(Objects.requireNonNull(getClass()
-                .getResource(click_path)).toString());
+                .getResource(path)).toString());
         sound.setVolume(0.5);
         sound.play();
     }

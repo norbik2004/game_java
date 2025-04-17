@@ -6,6 +6,7 @@ import com.example.my_game_java.game.character.player.Character;
 import com.example.my_game_java.game.character.room.Room;
 import com.example.my_game_java.game.services.GameStateManager;
 import com.example.my_game_java.game.services.PlayerManager;
+import com.example.my_game_java.services.Audio.AudioRepository;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -26,6 +27,8 @@ public class GameRepository implements GameRepositoryInterface {
 
     private Runnable onQueueEmpty;
     private Runnable onQueueNotEmpty;
+
+    private final AudioRepository audioRepository = new AudioRepository();
 
     public void setOnQueueEmpty(Runnable callback) {
         this.onQueueEmpty = callback;
@@ -218,7 +221,6 @@ public class GameRepository implements GameRepositoryInterface {
         int rooms = player.getRooms_number();
         ArrayList<Room> rooms_to_return = new ArrayList<>();
 
-
         for (int i = 0; i < rooms; i++) {
             Room room = new Room(i, "dark room", generateEnemies(i));
             rooms_to_return.add(room);
@@ -249,6 +251,11 @@ public class GameRepository implements GameRepositoryInterface {
         target.setHealth(target.getHealth() - damageDealt);
 
         addConsoleText("You hit " + target.getName() + " for " + damageDealt + " damage!\n", console);
+
+        if(target.getHealth() < 0) {
+            target.setHealth(0);
+        }
+
         addConsoleText("Enemy has now: " + target.getHealth() + "hp \n", console);
 
         if (target.getHealth() <= 0) {
@@ -267,7 +274,13 @@ public class GameRepository implements GameRepositoryInterface {
             }
 
             player.setHealth(player.getHealth() - enemyDamage);
+
             addConsoleText(target.getName() + " retaliates for " + enemyDamage + " damage!\n", console);
+            //audioRepository.playEffect("/audio/player_hurt.mp3");
+
+            if(player.getHealth() < 0) {
+                player.setHealth(0);
+            }
         }
 
         // Check if room is cleared

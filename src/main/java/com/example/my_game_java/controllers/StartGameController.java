@@ -116,7 +116,7 @@ public class StartGameController {
     //class selection
     @FXML
     private void selectWarrior() {
-        audioRepository.playClickSound();
+        audioRepository.playEffect("/audio/button_click.mp3");
         player = new Warrior();
         ArrayList<Room> rooms = gameRepository.generateRooms(player);
         GameState state = new GameState(player, rooms);
@@ -126,7 +126,7 @@ public class StartGameController {
 
     @FXML
     private void selectMage() {
-        audioRepository.playClickSound();
+        audioRepository.playEffect("/audio/button_click.mp3");
         player = new Mage();
         ArrayList<Room> rooms = gameRepository.generateRooms(player);
         GameState state = new GameState(player, rooms);
@@ -136,7 +136,7 @@ public class StartGameController {
 
     @FXML
     private void selectRouge() {
-        audioRepository.playClickSound();
+        audioRepository.playEffect("/audio/button_click.mp3");
         player = new Rouge();
         ArrayList<Room> rooms = gameRepository.generateRooms(player);
         GameState state = new GameState(player, rooms);
@@ -146,7 +146,7 @@ public class StartGameController {
 
     @FXML
     private void selectCleric() {
-        audioRepository.playClickSound();
+        audioRepository.playEffect("/audio/button_click.mp3");
         player = new Cleric();
         ArrayList<Room> rooms = gameRepository.generateRooms(player);
         GameState state = new GameState(player, rooms);
