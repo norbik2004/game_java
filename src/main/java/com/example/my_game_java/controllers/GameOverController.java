@@ -12,8 +12,8 @@ public class GameOverController {
     private final SceneRepository sceneRepository;
     public Label label;
 
-    public GameOverController(SceneRepository sceneRepository) {
-        this.sceneRepository = sceneRepository;
+    public GameOverController() {
+        this.sceneRepository = new SceneRepository();
     }
 
     @FXML

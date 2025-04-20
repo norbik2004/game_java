@@ -38,7 +38,11 @@ public class ItemStore {
         ));
 
         warrior_items = new ArrayList<>(List.of(
-                new Item(3,"Warrior Wand", "/icons",30,0,0)
+                new Item(3,"Bloody Sword", "/photos/icons/weapons/warrior/bloody_sword.jpg",50,0,0),
+                new Item(3,"Holy Mace", "/photos/icons/weapons/warrior/holy_mace.jpg",65,0,0),
+                new Item(3,"Lighting Sword", "/photos/icons/weapons/warrior/lighting_sword.jpg",100,0,0),
+                new Item(3,"Long Sword", "/photos/icons/weapons/warrior/long_sword.jpg",55,0,0),
+                new Item(3,"Purple Sword", "/photos/icons/weapons/warrior/purple_sword.jpg",75,0,0)
         ));
 
         armor_items = new ArrayList<>(List.of(
