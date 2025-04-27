@@ -46,7 +46,12 @@ public class ItemStore {
         ));
 
         armor_items = new ArrayList<>(List.of(
-                new Item(3,"Armor Wand", "/icons",0,15,30)
+                new Item(2,"Chain Chest", "/photos/icons/items/armor/chain_chest.jpg",0,15,10),
+                new Item(2,"Haunted Chest", "/photos/icons/items/armor/haunted_chest.jpg",0,25,10),
+                new Item(2,"Hoodie", "/photos/icons/items/armor/hoodie.jpg",0,15,15),
+                new Item(2,"Skeleton Chest", "/photos/icons/items/armor/skeleton_chestplate.jpg",0,30,35),
+                new Item(1,"Ski Mask", "/photos/icons/items/armor/ski_mask.jpg",0,5,10),
+                new Item(1,"Wizard's hat", "/photos/icons/items/armor/wizards_hat.jpg",0,10,30)
         ));
     }
 

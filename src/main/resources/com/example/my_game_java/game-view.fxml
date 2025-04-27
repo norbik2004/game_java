@@ -33,13 +33,18 @@
                     <VBox spacing="10">
                         <Button fx:id="attack" prefWidth="185" prefHeight="70"
                                 onAction="#onAttack"/>
-                        <Button fx:id="addTextButton" prefWidth="185" prefHeight="70"
-                                onAction="#onAttack"/>
+                        <Button fx:id="yes" prefWidth="185" prefHeight="70"
+                                onAction="#onYes"/>
                     </VBox>
                     <VBox spacing="10">
                         <Button fx:id="block" prefWidth="185" prefHeight="70"
                                 onAction="#onBlock"
                         />
+                        <Button fx:id="no" prefWidth="185" prefHeight="70"
+                                onAction="#onNo"/>
+                    </VBox>
+                    <VBox spacing="10">
+
                         <Button fx:id="walk" prefWidth="185" prefHeight="70"
                                 onAction="#onWalk"/>
                     </VBox>

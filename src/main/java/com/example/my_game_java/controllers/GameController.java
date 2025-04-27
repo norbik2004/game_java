@@ -71,7 +71,9 @@ public class GameController {
     private ImageView armor_icon;
 
     @FXML
-    private Button addTextButton;
+    private Button yes;
+    @FXML
+    private Button no;
 
     @FXML
     private Button attack;
@@ -110,20 +112,23 @@ public class GameController {
             attack.setDisable(true);
             walk.setDisable(true);
             block.setDisable(true);
-            addTextButton.setDisable(true);
+            yes.setDisable(true);
+            no.setDisable(true);
         });
         gameRepository.setOnQueueEmpty(() -> {
             attack.setDisable(false);
             walk.setDisable(false);
             block.setDisable(false);
-            addTextButton.setDisable(false);
+            yes.setDisable(false);
+            no.setDisable(false);
         });
 
         Image image = new Image(Objects.requireNonNull(getClass()
                 .getResourceAsStream("/photos/game-main-theme.png")));
         imageView.setImage(image);
         imageView.setOpacity(0.4);
-        addTextButton.setText("ACTION");
+        yes.setText("YES");
+        no.setText("NO");
         attack.setText("ATTACK");
         walk.setText("WALK");
         block.setText("BLOCK");
@@ -132,7 +137,7 @@ public class GameController {
         List<ImageView> icons = Arrays.asList(helmet_icon, main_hand_icon, boots_icon, armor_icon, second_hand_icon);
         List<Label> stats = Arrays.asList(health_bar, armor_bar, dmg_bar, crit_bar, armor_pen);
         List<Node> nodes = Arrays.asList(imageView,textArea,helmet_icon,main_hand_icon,second_hand_icon,boots_icon,armor_icon,
-                addTextButton,attack,walk,block,health_bar,healthBar,armor_bar,dmg_bar,crit_bar,armor_pen);
+                yes,no,attack,walk,block,health_bar,healthBar,armor_bar,dmg_bar,crit_bar,armor_pen);
 
 
 
@@ -150,6 +155,16 @@ public class GameController {
         ParallelTransition intro = sceneRepository.getSceneParallelTransition(nodes, true);
         outro = sceneRepository.getSceneParallelTransition(nodes, false);
         intro.play();
+    }
+
+    @FXML
+    private void onYes(){
+
+    }
+
+    @FXML
+    private void onNo(){
+
     }
 
     @FXML
@@ -239,5 +254,7 @@ public class GameController {
         });
         outro.play();
     }
+
+
 
 }

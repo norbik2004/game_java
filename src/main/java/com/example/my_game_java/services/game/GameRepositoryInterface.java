@@ -21,4 +21,5 @@ public interface GameRepositoryInterface {
     void walk(Character player, TextArea console);
     ArrayList<Room> generateRooms(Character player);
     void playerAttack(List<Enemy> enemies, Character player, TextArea console);
+    void enemyDropItem(TextArea console, Character player);
 }

@@ -2,6 +2,7 @@ package com.example.my_game_java.services.game;
 
 import com.example.my_game_java.game.character.enemy.*;
 import com.example.my_game_java.game.character.inventory.Item;
+import com.example.my_game_java.game.character.inventory.ItemStore;
 import com.example.my_game_java.game.character.player.Character;
 import com.example.my_game_java.game.character.room.Room;
 import com.example.my_game_java.game.services.GameStateManager;
@@ -246,7 +247,7 @@ public class GameRepository implements GameRepositoryInterface {
         if (damageDealt < 0) damageDealt = 0;
         double chance = random.nextDouble();
 
-        if(player.getCrit_chance() > chance) {
+        if (player.getCrit_chance() > chance) {
             damageDealt *= 2;
             addConsoleText("Critical hit! \n", console);
         }
@@ -255,7 +256,7 @@ public class GameRepository implements GameRepositoryInterface {
 
         addConsoleText("You hit " + target.getName() + " for " + damageDealt + " damage!\n", console);
 
-        if(target.getHealth() < 0) {
+        if (target.getHealth() < 0) {
             target.setHealth(0);
         }
 
@@ -271,7 +272,7 @@ public class GameRepository implements GameRepositoryInterface {
             if (enemyDamage < 0) enemyDamage = 0;
             double chance2 = random.nextDouble();
 
-            if(target.getCrit_chance() > chance2) {
+            if (target.getCrit_chance() > chance2) {
                 enemyDamage *= 2;
                 addConsoleText("Critical hit from the enemy! \n", console);
             }
@@ -287,7 +288,7 @@ public class GameRepository implements GameRepositoryInterface {
                 audioRepository.playEffect("/audio/player_hurt.mp3");
             }, 1, TimeUnit.SECONDS);
 
-            if(player.getHealth() < 0) {
+            if (player.getHealth() < 0) {
                 player.setHealth(0);
             }
         }
@@ -298,7 +299,37 @@ public class GameRepository implements GameRepositoryInterface {
 
         if (room.isCleared()) {
             addConsoleText("Room cleared!\n", console);
+            enemyDropItem(console, player);
         }
+    }
+
+    @Override
+    public void enemyDropItem(TextArea console, Character player) {
+        addConsoleText("ITEM DROPPED", console);
+    }
+
+    private Item getItem(Character player) {
+        ItemStore itemStore = ItemStore.getInstance();
+
+        List<Item> armor_items = itemStore.getArmorItems();
+        List<Item> weapons = new ArrayList<>();
+
+        weapons = switch (player.getClass().getSimpleName()) {
+            case "Cleric" -> itemStore.getClericItems();
+            case "Mage" -> itemStore.getMageItems();
+            case "Rogue" -> itemStore.getRogueItems();
+            case "Warrior" -> itemStore.getWarriorItems();
+            default -> weapons;
+        };
+
+        List<Item> combined_items = new ArrayList<>();
+        combined_items.addAll(armor_items);
+        combined_items.addAll(weapons);
+
+        Collections.shuffle(combined_items);
+        Random random = new Random();
+
+        return combined_items.get(random.nextInt(combined_items.size()));
     }
 
     /***
