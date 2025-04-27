@@ -42,6 +42,8 @@ public class GameController {
     private final SceneRepository sceneRepository;
     private boolean isInCombat = false;
     private ParallelTransition outro;
+    private List<ImageView> icons;
+    private List<Label> stats;
 
     public GameController() {
         this.audioRepository = new AudioRepository();
@@ -134,8 +136,8 @@ public class GameController {
         block.setText("BLOCK");
 
         audioRepository.switchMusic("/audio/main_music.mp3");
-        List<ImageView> icons = Arrays.asList(helmet_icon, main_hand_icon, boots_icon, armor_icon, second_hand_icon);
-        List<Label> stats = Arrays.asList(health_bar, armor_bar, dmg_bar, crit_bar, armor_pen);
+        icons = Arrays.asList(helmet_icon, main_hand_icon, boots_icon, armor_icon, second_hand_icon);
+        stats = Arrays.asList(health_bar, armor_bar, dmg_bar, crit_bar, armor_pen);
         List<Node> nodes = Arrays.asList(imageView,textArea,helmet_icon,main_hand_icon,second_hand_icon,boots_icon,armor_icon,
                 yes,no,attack,walk,block,health_bar,healthBar,armor_bar,dmg_bar,crit_bar,armor_pen);
 
@@ -159,12 +161,16 @@ public class GameController {
 
     @FXML
     private void onYes(){
-
+        Character player = PlayerManager.getInstance().getPlayer();
+        gameRepository.yesToItem();
+        gameRepository.addConsoleText("New item has been added \n", textArea);
+        gameRepository.initializeIcons(icons, player);
+        gameRepository.updateStats(stats, player);
     }
 
     @FXML
     private void onNo(){
-
+        gameRepository.addConsoleText("Item has been thrown to the trash \n", textArea);
     }
 
     @FXML

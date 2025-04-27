@@ -31,6 +31,7 @@ public class GameRepository implements GameRepositoryInterface {
 
     private Runnable onQueueEmpty;
     private Runnable onQueueNotEmpty;
+    private Item droppedItem;
 
     private final AudioRepository audioRepository = new AudioRepository();
 
@@ -299,14 +300,37 @@ public class GameRepository implements GameRepositoryInterface {
 
         if (room.isCleared()) {
             addConsoleText("Room cleared!\n", console);
-            enemyDropItem(console, player);
+            droppedItem = getItem(player);
+            enemyDropItem(console, player, droppedItem);
         }
     }
 
     @Override
-    public void enemyDropItem(TextArea console, Character player) {
-        addConsoleText("ITEM DROPPED", console);
+    public void enemyDropItem(TextArea console, Character player, Item item_dropped) {
+        addConsoleText("Enemy has dropped an item \n", console);
+        addConsoleText("Name: " + item_dropped.getName() + " damage: " + item_dropped.getDamageBonus()
+                + " armor: " + item_dropped.getArmorBonus() + " bonus health: " + item_dropped.getHealthBonus(), console);
     }
+
+
+    @Override
+    public void yesToItem() {
+        addItemToInv(droppedItem, PlayerManager.getInstance().getPlayer());
+    }
+
+    @Override
+    public void addItemToInv(Item item, Character player) {
+        List<Item> items = player.getInventory().getItems();
+
+        for (Item i : items) {
+            if(i.getId() == item.getId()) {
+                player.getInventory().getItems().remove(i);
+                player.getInventory().getItems().add(item);
+            }
+        }
+
+    }
+
 
     private Item getItem(Character player) {
         ItemStore itemStore = ItemStore.getInstance();

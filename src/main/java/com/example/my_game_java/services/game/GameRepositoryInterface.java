@@ -1,5 +1,6 @@
 package com.example.my_game_java.services.game;
 import com.example.my_game_java.game.character.enemy.Enemy;
+import com.example.my_game_java.game.character.inventory.Item;
 import com.example.my_game_java.game.character.player.Character;
 
 import com.example.my_game_java.game.character.room.Room;
@@ -21,5 +22,7 @@ public interface GameRepositoryInterface {
     void walk(Character player, TextArea console);
     ArrayList<Room> generateRooms(Character player);
     void playerAttack(List<Enemy> enemies, Character player, TextArea console);
-    void enemyDropItem(TextArea console, Character player);
+    void enemyDropItem(TextArea console, Character player, Item item_dropped);
+    void addItemToInv(Item item, Character player);
+    void yesToItem();
 }
