@@ -161,8 +161,8 @@ public class GameController {
 
     @FXML
     private void onYes(){
-        Character player = PlayerManager.getInstance().getPlayer();
         gameRepository.yesToItem();
+        Character player = PlayerManager.getInstance().getPlayer();
         gameRepository.addConsoleText("New item has been added \n", textArea);
         gameRepository.initializeIcons(icons, player);
         gameRepository.updateStats(stats, player);

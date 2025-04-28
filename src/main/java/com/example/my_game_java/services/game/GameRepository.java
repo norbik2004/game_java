@@ -19,6 +19,8 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import javafx.scene.shape.Rectangle;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -118,69 +120,76 @@ public class GameRepository implements GameRepositoryInterface {
         ImageView boots_icon = icons.get(2);
         ImageView armor_icon = icons.get(3);
         ImageView second_hand_icon = icons.get(4);
+
         List<Item> player_items = player.getInventory().getItems();
 
+        // Load empty icon safely
+        Image emptyIcon;
+        try (InputStream emptyIconStream = getClass().getResourceAsStream("/photos/icons/empty_icon.png")) {
+            if (emptyIconStream == null) {
+                throw new IllegalStateException("Missing resource: /photos/icons/empty_icon.png");
+            }
+            emptyIcon = new Image(emptyIconStream);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load empty icon", e);
+        }
+
         for (ImageView icon : icons) {
-            icon.setImage(new Image(Objects.requireNonNull(getClass().
-                    getResourceAsStream("/photos/icons/empty_icon.png"))));
+            icon.setImage(emptyIcon);
             icon.setOpacity(0.85);
         }
 
-        /*
-        ITEM ID
-        HELMET  ID ---- 1
-        ARMOR   ID ---- 2
-        MAIN    ID ---- 3
-        2 HAND  ID ---- 4
-        BOOTS   ID ---- 5
-        */
-
         for (Item item : player_items) {
+            if (item == null || item.getIcon_path() == null) {
+                continue;
+            }
+
+            Image itemIcon;
+            try (InputStream itemIconStream = getClass().getResourceAsStream(item.getIcon_path())) {
+                if (itemIconStream == null) {
+                    System.err.println("Missing icon for item: " + item.getName() + " (" + item.getIcon_path() + ")");
+                    continue;
+                }
+                itemIcon = new Image(itemIconStream);
+            } catch (IOException e) {
+                System.err.println("Failed to load icon for item: " + item.getName());
+                continue;
+            }
+
+            Tooltip tooltip = new Tooltip(item.getName() + " dmg: " + item.getDamageBonus());
+
             switch (item.getId()) {
                 case 1:
-                    Tooltip tooltip_helmet = new Tooltip();
-                    tooltip_helmet.setText(item.getName() + " armor: " + item.getDamageBonus());
-                    helmet_icon.setImage(new Image(Objects.requireNonNull(getClass().
-                            getResourceAsStream(item.getIcon_path()))));
-                    Tooltip.install(helmet_icon, tooltip_helmet);
+                    helmet_icon.setImage(itemIcon);
+                    Tooltip.install(helmet_icon, tooltip);
                     break;
                 case 2:
-                    Tooltip tooltip_armor = new Tooltip();
-                    tooltip_armor.setText(item.getName() + " dmg: " + item.getDamageBonus());
-                    armor_icon.setImage(new Image(Objects.requireNonNull(getClass().
-                            getResourceAsStream(item.getIcon_path()))));
-                    Tooltip.install(armor_icon, tooltip_armor);
+                    armor_icon.setImage(itemIcon);
+                    Tooltip.install(armor_icon, tooltip);
                     break;
                 case 3:
-                    Tooltip tooltip_main_weapon = new Tooltip();
-                    tooltip_main_weapon.setText(item.getName() + " dmg: " + item.getDamageBonus());
-                    main_hand_icon.setImage(new Image(Objects.requireNonNull(getClass().
-                            getResourceAsStream(item.getIcon_path()))));
-                    Tooltip.install(main_hand_icon, tooltip_main_weapon);
+                    main_hand_icon.setImage(itemIcon);
+                    Tooltip.install(main_hand_icon, tooltip);
                     break;
                 case 4:
-                    Tooltip tooltip_second_hand = new Tooltip();
-                    tooltip_second_hand.setText(item.getName() + " dmg: " + item.getDamageBonus());
-                    second_hand_icon.setImage(new Image(Objects.requireNonNull(getClass().
-                            getResourceAsStream(item.getIcon_path()))));
-                    Tooltip.install(second_hand_icon, tooltip_second_hand);
+                    second_hand_icon.setImage(itemIcon);
+                    Tooltip.install(second_hand_icon, tooltip);
                     break;
                 case 5:
-                    Tooltip tooltip_boots = new Tooltip();
-                    tooltip_boots.setText(item.getName() + " dmg: " + item.getDamageBonus());
-                    boots_icon.setImage(new Image(Objects.requireNonNull(getClass().
-                            getResourceAsStream(item.getIcon_path()))));
-                    Tooltip.install(boots_icon, tooltip_boots);
+                    boots_icon.setImage(itemIcon);
+                    Tooltip.install(boots_icon, tooltip);
                     break;
+                default:
+                    System.err.println("Unknown item ID: " + item.getId());
             }
         }
     }
 
     @Override
     public void updateStats(List<Label> stats, Character player) {
-        stats.get(0).setText("HEALTH: " + player.getHealth());
-        stats.get(1).setText("ARMOR:  " + player.getArmour());
-        stats.get(2).setText("DAMAGE: " + player.getDamage());
+        stats.get(0).setText("HEALTH: " + (player.getHealth() + player.getInventory().getTotalHealthBonus()));
+        stats.get(1).setText("ARMOR:  " + (player.getArmour() + player.getInventory().getTotalArmourBonus()));
+        stats.get(2).setText("DAMAGE: " + (player.getDamage() + player.getInventory().getTotalDamageBonus()));
         stats.get(3).setText("CRITIC: " + player.getCrit_chance());
         stats.get(4).setText("AR PEN: " + player.getArmour_pen());
     }
@@ -242,7 +251,7 @@ public class GameRepository implements GameRepositoryInterface {
         }
 
         Enemy target = enemies.get(0);
-        int damageDealt = (int) (player.getDamage() - (target.getArmour() -
+        int damageDealt = (int) ((player.getDamage() + player.getInventory().getTotalDamageBonus()) - (target.getArmour() -
                 (target.getArmour() * player.getArmour_pen())));
 
         if (damageDealt < 0) damageDealt = 0;
@@ -315,19 +324,22 @@ public class GameRepository implements GameRepositoryInterface {
 
     @Override
     public void yesToItem() {
+        System.out.println("Dropped item icon path: " + droppedItem.getIcon_path());
         addItemToInv(droppedItem, PlayerManager.getInstance().getPlayer());
     }
 
     @Override
-    public void addItemToInv(Item item, Character player) {
+    public void addItemToInv(Item newItem, Character player) {
         List<Item> items = player.getInventory().getItems();
 
-        for (Item i : items) {
-            if(i.getId() == item.getId()) {
-                player.getInventory().getItems().remove(i);
-                player.getInventory().getItems().add(item);
+
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId() == newItem.getId()) {
+                items.set(i, newItem);
+                return;
             }
         }
+        items.add(newItem);
 
     }
 
