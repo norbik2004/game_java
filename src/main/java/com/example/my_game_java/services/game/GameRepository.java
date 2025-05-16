@@ -147,13 +147,11 @@ public class GameRepository implements GameRepositoryInterface {
             Image itemIcon;
             try (InputStream itemIconStream = getClass().getResourceAsStream(item.getIcon_path())) {
                 if (itemIconStream == null) {
-                    System.err.println("Missing icon for item: " + item.getName() + " (" + item.getIcon_path() + ")");
-                    continue;
+                    throw new ItemIconLoadException(item.getName(), item.getIcon_path());
                 }
                 itemIcon = new Image(itemIconStream);
             } catch (IOException e) {
-                System.err.println("Failed to load icon for item: " + item.getName());
-                continue;
+                throw new ItemIconLoadException(item.getName(), e);
             }
 
             Tooltip tooltip = new Tooltip(item.getName() + " dmg: " + item.getDamageBonus());
@@ -318,7 +316,8 @@ public class GameRepository implements GameRepositoryInterface {
     public void enemyDropItem(TextArea console, Character player, Item item_dropped) {
         addConsoleText("Enemy has dropped an item \n", console);
         addConsoleText("Name: " + item_dropped.getName() + " damage: " + item_dropped.getDamageBonus()
-                + " armor: " + item_dropped.getArmorBonus() + " bonus health: " + item_dropped.getHealthBonus(), console);
+                + " armor: " + item_dropped.getArmorBonus() + " bonus health: " + item_dropped.getHealthBonus()
+                + "\n", console);
     }
 
 
@@ -329,7 +328,7 @@ public class GameRepository implements GameRepositoryInterface {
     }
 
     @Override
-    public void addItemToInv(Item newItem, Character player) {
+    public void addItemToInv(Item newItem, Character player){
         List<Item> items = player.getInventory().getItems();
 
 
@@ -421,7 +420,7 @@ public class GameRepository implements GameRepositoryInterface {
         double chance;
         int enemies = 1;
 
-        if (i <= 20) {
+        if (i <= 20 ) {
             chance = rand.nextDouble();
             if (chance < 0.25) {
                 enemies = 2;
@@ -434,6 +433,7 @@ public class GameRepository implements GameRepositoryInterface {
             }
         }
 
+        if (i < 10) enemies = 1;
         if (i == 0) enemies = 0;
 
         // later generate different type of enemies
